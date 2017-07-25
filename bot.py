@@ -13,7 +13,7 @@ def getCryptoPrice(currency_pair):
     except requests.ConnectionError:
         print('Error querying Bitstamp API')
 
-db=redis.from_url(os.environ['REDISCLOUD_URL'])
+db=redis.from_url(os.environ['REDIS_URL'])
 
 #hashnest_api = hashnest('username', 'access_key', 'secret_key')
 hashnest_api = hashnest(os.environ['username'], os.environ['access_key'], os.environ['secret_key'])
