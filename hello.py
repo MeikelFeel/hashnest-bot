@@ -2,7 +2,7 @@
 import os, redis
 from flask import Flask, Response
 app = Flask(__name__)
-db=redis.from_url(os.environ['REDISCLOUD_URL'])
+db=redis.from_url(os.environ['REDIS_URL'])
 
 @app.route('/')
 def hello():
