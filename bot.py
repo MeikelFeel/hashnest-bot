@@ -206,7 +206,7 @@ print('Low:  %10.8f' % (l3_ppc_lowmean))
 print('Min:  %10.8f' % (l3_ppc_min))
 print('Bid:  %10.8f' % (max(l3bidlist)))
 
-autobuy=True
+autobuy=os.environ['l3autobuy']
 if autobuy:
     if ltc_blocked>0:
         print('\n')
@@ -232,7 +232,7 @@ print('Low:  %10.8f' % (s9_ppc_lowmean))
 print('Min:  %10.8f' % (s9_ppc_min))
 print('Bid:  %10.8f' % (max(s9bidlist)))
 
-autobuy=True
+autobuy=os.environ['s9autobuy']
 if autobuy:
     if btc_blocked>0:
         print('\n')
@@ -258,7 +258,7 @@ print('Low:  %10.8f' % (s7_ppc_lowmean))
 print('Min:  %10.8f' % (s7_ppc_min))
 print('Bid:  %10.8f' % (max(s7bidlist)))
 
-autobuy=True
+autobuy=os.environ['s7autobuy']
 if autobuy:
     if btc_blocked>0:
         print('\n')
