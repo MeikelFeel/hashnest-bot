@@ -153,10 +153,11 @@ today = date.today()
 accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7tradesmedian
 accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
-gettoday = db.get(today) or accusdvalue
+gettoday = json.loads(db.get(today).decode('utf-8')) or accusdvalue
 print(gettoday)
 print(gettoday[0])
 meanaccusdvalue = mean([float(accusdvalue), accusdvalue])
+#meanaccusdvalue = mean([float(gettoday[0] or accusdvalue), accusdvalue])
 print(meanaccusdvalue)
 
 getyesterday = db.get(today - timedelta(days=1)) or [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate]
@@ -164,7 +165,7 @@ getweek = db.get(today - timedelta(days=7)) or [accusdvalue, s7hashrate, s9hashr
 getmonth = db.get(today - timedelta(days=30)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 getyear = db.get(today - timedelta(days=365)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 
-varslist = [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate]
+varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
 db.set(today, varslist)
 
 orig_stdout = sys.stdout
