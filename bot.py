@@ -163,10 +163,10 @@ def getdate(days):
         date = db.get(today - timedelta(days=days))
     return date
 
-getyesterday = getdate(1) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
-getweek = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
-getmonth = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
-getyear = getdate(365) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+yesterday = getdate(1) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+year = getdate(365) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 
 varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
 db.set(today, varslist)
@@ -203,20 +203,22 @@ def percentchange(val, n, period):
         var = val / float(period or val) * 100 - 100
     return var
 
-s7hashratepercentyesterday = percentchange(s7hashrate, 1, getyesterday)
-s7hashratepercentweek = percentchange(s7hashrate, 1, getweek)
-s7hashratepercentmonth = percentchange(s7hashrate, 1, getmonth)
-s7hashratepercentyear = percentchange(s7hashrate, 1, getyear)
+print(yesterday)
 
-s9hashratepercentyesterday = percentchange(s9hashrate, 2, getyesterday)
-s9hashratepercentweek = percentchange(s9hashrate, 2, getweek)
-s9hashratepercentmonth = percentchange(s9hashrate, 2, getmonth)
-s9hashratepercentyear = percentchange(s9hashrate, 2, getyear)
+s7hashratepercentyesterday = percentchange(s7hashrate, 1, yesterday)
+s7hashratepercentweek = percentchange(s7hashrate, 1, week)
+s7hashratepercentmonth = percentchange(s7hashrate, 1, month)
+s7hashratepercentyear = percentchange(s7hashrate, 1, year)
 
-l3hashratepercentyesterday = percentchange(l3hashrate, 3, getyesterday)
-l3hashratepercentweek = percentchange(l3hashrate, 3, getweek)
-l3hashratepercentmonth = percentchange(l3hashrate, 3, getmonth)
-l3hashratepercentyear = percentchange(l3hashrate, 3, getyear)
+s9hashratepercentyesterday = percentchange(s9hashrate, 2, yesterday)
+s9hashratepercentweek = percentchange(s9hashrate, 2, week)
+s9hashratepercentmonth = percentchange(s9hashrate, 2, month)
+s9hashratepercentyear = percentchange(s9hashrate, 2, year)
+
+l3hashratepercentyesterday = percentchange(l3hashrate, 3, yesterday)
+l3hashratepercentweek = percentchange(l3hashrate, 3, week)
+l3hashratepercentmonth = percentchange(l3hashrate, 3, month)
+l3hashratepercentyear = percentchange(l3hashrate, 3, year)
 
 print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
 if s7hashrate_blocked>0:
@@ -230,10 +232,10 @@ if l3hashrate_blocked>0:
 
 print('\n')
 
-accvalpercentyesterday = percentchange(accusdvalue, 0, getyesterday)
-accvalpercentweek = percentchange(accusdvalue, 0, getweek)
-accvalpercentmonth = percentchange(accusdvalue, 0, getmonth)
-accvalpercentyear = percentchange(accusdvalue, 0, getyear)
+accvalpercentyesterday = percentchange(accusdvalue, 0, yesterday)
+accvalpercentweek = percentchange(accusdvalue, 0, week)
+accvalpercentmonth = percentchange(accusdvalue, 0, month)
+accvalpercentyear = percentchange(accusdvalue, 0, year)
 print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (accusdvalue, accvalpercentyesterday, accvalpercentweek, accvalpercentmonth, accvalpercentyear))
 
 print('\n')
