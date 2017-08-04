@@ -155,6 +155,7 @@ accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
 gettoday = db.get(today) or accusdvalue
 print(gettoday)
+print(gettoday[0])
 meanaccusdvalue = mean([float(accusdvalue), accusdvalue])
 print(meanaccusdvalue)
 
