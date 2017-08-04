@@ -154,7 +154,6 @@ accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7trade
 accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
 gettoday = db.get(today) or accusdvalue
-print(gettoday)
 meanaccusdvalue = mean([float(gettoday[0] or accusdvalue), accusdvalue])
 
 getyesterday = db.get(today - timedelta(days=1)) or [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate]
@@ -217,10 +216,10 @@ if l3hashrate_blocked>0:
 
 print('\n')
 
-accvalpercentyesterday = accusdvalue / (float(getyesterday['accusdvalue'] or getyesterday or meanaccusdvalue)) * 100 - 100
-accvalpercentweek = accusdvalue / (float(getweek['accusdvalue'] or getweek or accusdvalue)) * 100 - 100
-accvalpercentmonth = accusdvalue / (float(getmonth['accusdvalue'] or getmonth or accusdvalue)) * 100 - 100
-accvalpercentyear = accusdvalue / (float(getyear['accusdvalue'] or getyear or accusdvalue)) * 100 - 100
+accvalpercentyesterday = accusdvalue / (float(getyesterday or meanaccusdvalue)) * 100 - 100
+accvalpercentweek = accusdvalue / (float(getweek or accusdvalue)) * 100 - 100
+accvalpercentmonth = accusdvalue / (float(getmonth or accusdvalue)) * 100 - 100
+accvalpercentyear = accusdvalue / (float(getyear or accusdvalue)) * 100 - 100
 print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (accusdvalue, accvalpercentyesterday, accvalpercentweek, accvalpercentmonth, accvalpercentyear))
 
 print('\n')
