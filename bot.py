@@ -218,8 +218,8 @@ print('\n')
 
 accvalpercentyesterday = accusdvalue / (float(getyesterday or meanaccusdvalue)) * 100 - 100
 accvalpercentweek = accusdvalue / (float(getweek or accusdvalue)) * 100 - 100
-accvalpercentmonth = accusdvalue / (float(getmonth or accusdvalue)) * 100 - 100
-accvalpercentyear = accusdvalue / (float(getyear or accusdvalue)) * 100 - 100
+accvalpercentmonth = accusdvalue / (float(getmonth[0] or accusdvalue)) * 100 - 100
+accvalpercentyear = accusdvalue / (float(getyear[0] or accusdvalue)) * 100 - 100
 print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (accusdvalue, accvalpercentyesterday, accvalpercentweek, accvalpercentmonth, accvalpercentyear))
 
 print('\n')
