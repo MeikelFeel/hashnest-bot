@@ -158,7 +158,7 @@ meanaccusdvalue = mean([float(gettoday[0] or accusdvalue), accusdvalue])
 
 getyesterday = json.loads(db.get(today - timedelta(days=1)).decode('utf-8') or [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
 getweek = json.loads(db.get(today - timedelta(days=7)).decode('utf-8') or [accusdvalue, s7hashrate, s9hashrate, l3hashrate])
-getmonth = json.loads(db.get(today - timedelta(days=30)).decode('utf-8') or [accusdvalue, s7hashrate, s9hashrate, l3hashrate])
+getmonth = json.loads((db.get(today - timedelta(days=30)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]).decode('utf-8'))
 getyear = json.loads(db.get(today - timedelta(days=365)).decode('utf-8') or [accusdvalue, s7hashrate, s9hashrate, l3hashrate])
 
 varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
