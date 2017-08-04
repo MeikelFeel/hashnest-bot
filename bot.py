@@ -139,6 +139,9 @@ db.set('s7hashrate', s7hashrate)
 db.set('s9hashrate', s9hashrate)
 db.set('l3hashrate', l3hashrate)
 
+btcusd=getCryptoPrice('btcusd')
+ltcusd=getCryptoPrice('ltcusd')
+
 orig_stdout = sys.stdout
 f = open('out.txt', 'w')
 sys.stdout = f
@@ -185,7 +188,7 @@ db.set('s7tradesmedian', '%10.8f' % (s7tradesmedian))
 
 accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7tradesmedian
 accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
-accusdvalue=getCryptoPrice('btcusd') * accbtcvalue + getCryptoPrice('ltcusd') * accltcvalue
+accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
 today = date.today()
 meantoday = mean([float(db.get(today) or accusdvalue), accusdvalue])
 db.set(today, meantoday)
@@ -197,7 +200,7 @@ print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f
 
 print('\n')
 
-print('L3 trade [%10.8f]' % (l3tradesmedian))
+print('L3 trade [%10.8f] [USD %4.2f]' % (l3tradesmedian, l3tradesmedian * ltcusd))
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
 print('High: %10.8f' % (l3_ppc_highmean))
@@ -223,7 +226,7 @@ if autobuy:
 
 print('\n')
 
-print('S9 trade [%10.8f]' % (s9tradesmedian))
+print('S9 trade [%10.8f] [USD %4.2f]' % (s9tradesmedian, s9tradesmedian * btcusd))
 print('Ask:  %10.8f' % (min(s9asklist)))
 print('Max:  %10.8f' % (s9_ppc_max))
 print('High: %10.8f' % (s9_ppc_highmean))
@@ -249,7 +252,7 @@ if autobuy:
 
 print('\n')
 
-print('S7 trade [%10.8f]' % (s7tradesmedian))
+print('S7 trade [%10.8f] [USD %4.2f]' % (s7tradesmedian, s7tradesmedian * btcusd))
 print('Ask:  %10.8f' % (min(s7asklist)))
 print('Max:  %10.8f' % (s7_ppc_max))
 print('High: %10.8f' % (s7_ppc_highmean))
