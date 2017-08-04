@@ -153,17 +153,17 @@ today = date.today()
 accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7tradesmedian
 accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
-gettoday = json.loads(db.get(today)) or accusdvalue
+gettoday = db.get(today) or accusdvalue
 print(gettoday)
-meanaccusdvalue = mean([float(gettoday['accusdvalue'] or accusdvalue), accusdvalue])
+meanaccusdvalue = mean([float(accusdvalue), accusdvalue])
 
 getyesterday = db.get(today - timedelta(days=1)) or {'accusdvalue': meanaccusdvalue, 's7hashrate': s7hashrate, 's9hashrate': s9hashrate, 'l3hashrate': l3hashrate}
 getweek = db.get(today - timedelta(days=7)) or {'accusdvalue': accusdvalue, 's7hashrate': s7hashrate, 's9hashrate': s9hashrate, 'l3hashrate': l3hashrate}
 getmonth = db.get(today - timedelta(days=30)) or {'accusdvalue': accusdvalue, 's7hashrate': s7hashrate, 's9hashrate': s9hashrate, 'l3hashrate': l3hashrate}
 getyear = db.get(today - timedelta(days=365)) or {'accusdvalue': accusdvalue, 's7hashrate': s7hashrate, 's9hashrate': s9hashrate, 'l3hashrate': l3hashrate}
 
-varsdict = {'accusdvalue': meanaccusdvalue, 's7hashrate': s7hashrate, 's9hashrate': s9hashrate, 'l3hashrate': l3hashrate}
-db.set(today, varsdict)
+varslist = [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate]
+db.set(today, varslist)
 
 orig_stdout = sys.stdout
 f = open('out.txt', 'w')
