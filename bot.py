@@ -189,20 +189,20 @@ if ltc_blocked>0:
 
 print('\n')
 
-s7hashratepercentyesterday = s7hashrate / (float(getyesterday[1] or s7hashrate)) * 100 - 100
-s7hashratepercentweek = s7hashrate / (float(getweek[1] or s7hashrate)) * 100 - 100
-s7hashratepercentmonth = s7hashrate / (float(getmonth[1] or s7hashrate)) * 100 - 100
-s7hashratepercentyear = s7hashrate / (float(getyear[1] or s7hashrate)) * 100 - 100
+s7hashratepercentyesterday = s7hashrate / getyesterday[1] or s7hashrate * 100 - 100
+s7hashratepercentweek = s7hashrate / getweek[1] or s7hashrate * 100 - 100
+s7hashratepercentmonth = s7hashrate / getmonth[1] or s7hashrate * 100 - 100
+s7hashratepercentyear = s7hashrate / getyear[1] or s7hashrate * 100 - 100
 
-s9hashratepercentyesterday = s9hashrate / (float(getyesterday[2] or s9hashrate)) * 100 - 100
-s9hashratepercentweek = s9hashrate / (float(getweek[2] or s9hashrate)) * 100 - 100
-s9hashratepercentmonth = s9hashrate / (float(getmonth[2] or s9hashrate)) * 100 - 100
-s9hashratepercentyear = s9hashrate / (float(getyear[2] or s9hashrate)) * 100 - 100
+s9hashratepercentyesterday = s9hashrate / getyesterday[2] or s9hashrate * 100 - 100
+s9hashratepercentweek = s9hashrate / getweek[2] or s9hashrate * 100 - 100
+s9hashratepercentmonth = s9hashrate / getmonth[2] or s9hashrate * 100 - 100
+s9hashratepercentyear = s9hashrate / getyear[2] or s9hashrate * 100 - 100
 
-l3hashratepercentyesterday = l3hashrate / (float(getyesterday[3] or l3hashrate)) * 100 - 100
-l3hashratepercentweek = l3hashrate / (float(getweek[3] or l3hashrate)) * 100 - 100
-l3hashratepercentmonth = l3hashrate / (float(getmonth[3] or l3hashrate)) * 100 - 100
-l3hashratepercentyear = l3hashrate / (float(getyear[3] or l3hashrate)) * 100 - 100
+l3hashratepercentyesterday = l3hashrate / getyesterday[3] or l3hashrate * 100 - 100
+l3hashratepercentweek = l3hashrate / getweek[3] or l3hashrate * 100 - 100
+l3hashratepercentmonth = l3hashrate / getmonth[3] or l3hashrate * 100 - 100
+l3hashratepercentyear = l3hashrate / getyear[3] or l3hashrate * 100 - 100
 
 print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
 if s7hashrate_blocked>0:
