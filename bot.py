@@ -203,8 +203,6 @@ def percentchange(val, n, period):
         var = val / float(period or val) * 100 - 100
     return var
 
-print(yesterday)
-
 s7hashratepercentyesterday = percentchange(s7hashrate, 1, yesterday)
 s7hashratepercentweek = percentchange(s7hashrate, 1, week)
 s7hashratepercentmonth = percentchange(s7hashrate, 1, month)
