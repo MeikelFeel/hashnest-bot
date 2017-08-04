@@ -154,11 +154,7 @@ accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7trade
 accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
 gettoday = json.loads(db.get(today).decode('utf-8')) or accusdvalue
-print(gettoday)
-print(gettoday[0])
-meanaccusdvalue = mean([float(accusdvalue), accusdvalue])
-#meanaccusdvalue = mean([float(gettoday[0] or accusdvalue), accusdvalue])
-print(meanaccusdvalue)
+meanaccusdvalue = mean([float(gettoday[0] or accusdvalue), accusdvalue])
 
 getyesterday = db.get(today - timedelta(days=1)) or [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate]
 getweek = db.get(today - timedelta(days=7)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
