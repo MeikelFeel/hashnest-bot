@@ -168,6 +168,11 @@ week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 year = getdate(365) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 
+print(yesterday)
+print(week)
+print(month)
+print(year)
+
 varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
 db.set(today, varslist)
 
