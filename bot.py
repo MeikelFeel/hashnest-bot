@@ -153,8 +153,11 @@ today = date.today()
 accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7tradesmedian
 accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
-gettoday = json.loads(db.get(today).decode('utf-8')) or accusdvalue
-meanaccusdvalue = mean([float(gettoday[0] or accusdvalue), accusdvalue])
+try:
+    gettoday = json.loads(db.get(today).decode('utf-8'))
+    meanaccusdvalue = mean([float(gettoday[0]), accusdvalue])
+except:
+    meanaccusdvalue = accusdvalue
 
 def getdate(days):
     try:
