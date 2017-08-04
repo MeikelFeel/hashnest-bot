@@ -161,7 +161,7 @@ getweek = db.get(today - timedelta(days=7)) or [accusdvalue, s7hashrate, s9hashr
 getmonth = db.get(today - timedelta(days=30)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 getyear = db.get(today - timedelta(days=365)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 
-varslist = [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+varslist = [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate]
 db.set(today, varslist)
 
 orig_stdout = sys.stdout
