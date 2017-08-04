@@ -190,13 +190,22 @@ accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7trade
 accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
 today = date.today()
-meantoday = mean([float(db.get(today) or accusdvalue), accusdvalue])
-db.set(today, meantoday)
-yesterday = accusdvalue / (float(db.get(today - timedelta(days=1)) or meantoday)) * 100 - 100
-week = accusdvalue / (float(db.get(today - timedelta(days=7)) or accusdvalue)) * 100 - 100
-month = accusdvalue / (float(db.get(today - timedelta(days=30)) or accusdvalue)) * 100 - 100
-year = accusdvalue / (float(db.get(today - timedelta(days=365)) or accusdvalue)) * 100 - 100
-print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (accusdvalue, yesterday, week, month, year))
+gettoday = db.get(today) or accusdvalue
+meanaccusdvalue = mean([float(gettoday['accusdvalue'] or gettoday), accusdvalue])
+
+varsdict = {'accusdvalue': meanaccusdvalue, 's7hashrate': s7hashrate, 's9hashrate': s9hashrate, 'l3hashrate': l3hashrate}
+db.set(today, varsdict)
+
+getaccvalyesterday = db.get(today - timedelta(days=1)) or meanaccusdvalue
+getaccvalweek = db.get(today - timedelta(days=7)) or accusdvalue
+getaccvalmonth = db.get(today - timedelta(days=30)) or accusdvalue
+getaccvalyear = db.get(today - timedelta(days=365)) or accusdvalue
+
+accvalpercentyesterday = accusdvalue / (float(getaccvalyesterday['accusdvalue'] or getaccvalyesterday or meanaccusdvalue)) * 100 - 100
+accvalpercentweek = accusdvalue / (float(getaccvalweek['accusdvalue'] or getaccvalweek or accusdvalue)) * 100 - 100
+accvalpercentmonth = accusdvalue / (float(getaccvalmonth['accusdvalue'] or getaccvalmonth or accusdvalue)) * 100 - 100
+accvalpercentyear = accusdvalue / (float(getaccvalyear['accusdvalue'] or getaccvalyear or accusdvalue)) * 100 - 100
+print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (accusdvalue, accvalpercentyesterday, accvalpercentweek, accvalpercentmonth, accvalpercentyear))
 
 print('\n')
 
