@@ -161,9 +161,6 @@ getweek = json.loads(db.get(today - timedelta(days=7)).decode('utf-8')) or [accu
 getmonth = db.get(today - timedelta(days=30)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 getyear = db.get(today - timedelta(days=365)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 
-print(getyesterday)
-print(getyesterday[1])
-
 varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
 db.set(today, varslist)
 
@@ -192,7 +189,7 @@ if ltc_blocked>0:
 
 print('\n')
 
-s7hashratepercentyesterday = s7hashrate / getyesterday[1] or s7hashrate * 100 - 100
+s7hashratepercentyesterday = s7hashrate / (getyesterday[1] or s7hashrate) * 100 - 100
 s7hashratepercentweek = s7hashrate / getweek[1] or s7hashrate * 100 - 100
 s7hashratepercentmonth = s7hashrate / getmonth[1] or s7hashrate * 100 - 100
 s7hashratepercentyear = s7hashrate / getyear[1] or s7hashrate * 100 - 100
