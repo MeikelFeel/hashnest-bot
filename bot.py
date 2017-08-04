@@ -189,27 +189,27 @@ if ltc_blocked>0:
 
 print('\n')
 
-def hashratepercent(hashrate, n, period):
+def percentchange(val, n, period):
     try:
-        var = hashrate / period[n] or hashrate * 100 - 100
+        var = val / float(period[n] or val) * 100 - 100
     except:
-        var = hashrate / period or hashrate * 100 - 100
+        var = val / float(period or val) * 100 - 100
     return var
 
-s7hashratepercentyesterday = hashratepercent(s7hashrate, 1, getyesterday)
-s7hashratepercentweek = hashratepercent(s7hashrate, 1, getweek)
-s7hashratepercentmonth = hashratepercent(s7hashrate, 1, getmonth)
-s7hashratepercentyear = hashratepercent(s7hashrate, 1, getyear)
+s7hashratepercentyesterday = percentchange(s7hashrate, 1, getyesterday)
+s7hashratepercentweek = percentchange(s7hashrate, 1, getweek)
+s7hashratepercentmonth = percentchange(s7hashrate, 1, getmonth)
+s7hashratepercentyear = percentchange(s7hashrate, 1, getyear)
 
-s9hashratepercentyesterday = hashratepercent(s9hashrate, 2, getyesterday)
-s9hashratepercentweek = hashratepercent(s9hashrate, 2, getweek)
-s9hashratepercentmonth = hashratepercent(s9hashrate, 2, getmonth)
-s9hashratepercentyear = hashratepercent(s9hashrate, 2, getyear)
+s9hashratepercentyesterday = percentchange(s9hashrate, 2, getyesterday)
+s9hashratepercentweek = percentchange(s9hashrate, 2, getweek)
+s9hashratepercentmonth = percentchange(s9hashrate, 2, getmonth)
+s9hashratepercentyear = percentchange(s9hashrate, 2, getyear)
 
-l3hashratepercentyesterday = hashratepercent(l3hashrate, 3, getyesterday)
-l3hashratepercentweek = hashratepercent(l3hashrate, 3, getweek)
-l3hashratepercentmonth = hashratepercent(l3hashrate, 3, getmonth)
-l3hashratepercentyear = hashratepercent(l3hashrate, 3, getyear)
+l3hashratepercentyesterday = percentchange(l3hashrate, 3, getyesterday)
+l3hashratepercentweek = percentchange(l3hashrate, 3, getweek)
+l3hashratepercentmonth = percentchange(l3hashrate, 3, getmonth)
+l3hashratepercentyear = percentchange(l3hashrate, 3, getyear)
 
 print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
 if s7hashrate_blocked>0:
