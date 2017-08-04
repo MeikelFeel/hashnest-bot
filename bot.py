@@ -139,6 +139,13 @@ db.set('s7hashrate', s7hashrate)
 db.set('s9hashrate', s9hashrate)
 db.set('l3hashrate', l3hashrate)
 
+l3tradesmedian = median(l3tradeslist)
+db.set('l3tradesmedian', '%10.8f' % (l3tradesmedian))
+s9tradesmedian = median(s9tradeslist)
+db.set('s9tradesmedian', '%10.8f' % (s9tradesmedian))
+s7tradesmedian = median(s7tradeslist)
+db.set('s7tradesmedian', '%10.8f' % (s7tradesmedian))
+
 btcusd=getCryptoPrice('btcusd')
 ltcusd=getCryptoPrice('ltcusd')
 
@@ -182,15 +189,25 @@ if ltc_blocked>0:
 
 print('\n')
 
+s7hashratepercentyesterday = s7hashrate / (float(getyesterday['s7hashrate'] or s7hashrate)) * 100 - 100
+s7hashratepercentweek = s7hashrate / (float(getweek['s7hashrate'] or s7hashrate)) * 100 - 100
+s7hashratepercentmonth = s7hashrate / (float(getmonth['s7hashrate'] or s7hashrate)) * 100 - 100
+s7hashratepercentyear = s7hashrate / (float(getyear['s7hashrate'] or s7hashrate)) * 100 - 100
+
+s9hashratepercentyesterday = s9hashrate / (float(getyesterday['s9hashrate'] or s9hashrate)) * 100 - 100
+s9hashratepercentweek = s9hashrate / (float(getweek['s9hashrate'] or s9hashrate)) * 100 - 100
+s9hashratepercentmonth = s9hashrate / (float(getmonth['s9hashrate'] or s9hashrate)) * 100 - 100
+s9hashratepercentyear = s9hashrate / (float(getyear['s9hashrate'] or s9hashrate)) * 100 - 100
+
 l3hashratepercentyesterday = l3hashrate / (float(getyesterday['l3hashrate'] or l3hashrate)) * 100 - 100
 l3hashratepercentweek = l3hashrate / (float(getweek['l3hashrate'] or l3hashrate)) * 100 - 100
 l3hashratepercentmonth = l3hashrate / (float(getmonth['l3hashrate'] or l3hashrate)) * 100 - 100
 l3hashratepercentyear = l3hashrate / (float(getyear['l3hashrate'] or l3hashrate)) * 100 - 100
 
-print('%s hashrate: %i' % (hashrate[6]['currency']['code'], s7hashrate))
+print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
 if s7hashrate_blocked>0:
     print('  Locked: %i' % (s7hashrate_blocked))
-print('%s hashrate: %i' % (hashrate[7]['currency']['code'], s9hashrate))
+print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[7]['currency']['code'], s9hashrate, s9hashratepercentyesterday, s9hashratepercentweek, s9hashratepercentmonth, s9hashratepercentyear))
 if s9hashrate_blocked>0:
     print('  Locked: %i' % (s9hashrate_blocked))
 print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[8]['currency']['code'], l3hashrate, l3hashratepercentyesterday, l3hashratepercentweek, l3hashratepercentmonth, l3hashratepercentyear))
@@ -198,13 +215,6 @@ if l3hashrate_blocked>0:
     print('  Locked: %i' % (l3hashrate_blocked))
 
 print('\n')
-
-l3tradesmedian = median(l3tradeslist)
-db.set('l3tradesmedian', '%10.8f' % (l3tradesmedian))
-s9tradesmedian = median(s9tradeslist)
-db.set('s9tradesmedian', '%10.8f' % (s9tradesmedian))
-s7tradesmedian = median(s7tradeslist)
-db.set('s7tradesmedian', '%10.8f' % (s7tradesmedian))
 
 accvalpercentyesterday = accusdvalue / (float(getyesterday['accusdvalue'] or getyesterday or meanaccusdvalue)) * 100 - 100
 accvalpercentweek = accusdvalue / (float(getweek['accusdvalue'] or getweek or accusdvalue)) * 100 - 100
