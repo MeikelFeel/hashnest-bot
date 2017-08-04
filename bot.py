@@ -161,6 +161,9 @@ getweek = json.loads(db.get(today - timedelta(days=7)).decode('utf-8')) or [accu
 getmonth = db.get(today - timedelta(days=30)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 getyear = db.get(today - timedelta(days=365)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 
+print(getyesterday)
+print(getyesterday[1])
+
 varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
 db.set(today, varslist)
 
