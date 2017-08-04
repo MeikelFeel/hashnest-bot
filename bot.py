@@ -189,20 +189,36 @@ if ltc_blocked>0:
 
 print('\n')
 
-s7hashratepercentyesterday = s7hashrate / (getyesterday[1] or s7hashrate) * 100 - 100
-s7hashratepercentweek = s7hashrate / getweek[1] or s7hashrate * 100 - 100
-s7hashratepercentmonth = s7hashrate / getmonth[1] or s7hashrate * 100 - 100
-s7hashratepercentyear = s7hashrate / getyear[1] or s7hashrate * 100 - 100
+try:
+    s7hashratepercentyesterday = s7hashrate / getyesterday[1] or s7hashrate * 100 - 100
+    s7hashratepercentweek = s7hashrate / getweek[1] or s7hashrate * 100 - 100
+    s7hashratepercentmonth = s7hashrate / getmonth[1] or s7hashrate * 100 - 100
+    s7hashratepercentyear = s7hashrate / getyear[1] or s7hashrate * 100 - 100
 
-s9hashratepercentyesterday = s9hashrate / getyesterday[2] or s9hashrate * 100 - 100
-s9hashratepercentweek = s9hashrate / getweek[2] or s9hashrate * 100 - 100
-s9hashratepercentmonth = s9hashrate / getmonth[2] or s9hashrate * 100 - 100
-s9hashratepercentyear = s9hashrate / getyear[2] or s9hashrate * 100 - 100
+    s9hashratepercentyesterday = s9hashrate / getyesterday[2] or s9hashrate * 100 - 100
+    s9hashratepercentweek = s9hashrate / getweek[2] or s9hashrate * 100 - 100
+    s9hashratepercentmonth = s9hashrate / getmonth[2] or s9hashrate * 100 - 100
+    s9hashratepercentyear = s9hashrate / getyear[2] or s9hashrate * 100 - 100
 
-l3hashratepercentyesterday = l3hashrate / getyesterday[3] or l3hashrate * 100 - 100
-l3hashratepercentweek = l3hashrate / getweek[3] or l3hashrate * 100 - 100
-l3hashratepercentmonth = l3hashrate / getmonth[3] or l3hashrate * 100 - 100
-l3hashratepercentyear = l3hashrate / getyear[3] or l3hashrate * 100 - 100
+    l3hashratepercentyesterday = l3hashrate / getyesterday[3] or l3hashrate * 100 - 100
+    l3hashratepercentweek = l3hashrate / getweek[3] or l3hashrate * 100 - 100
+    l3hashratepercentmonth = l3hashrate / getmonth[3] or l3hashrate * 100 - 100
+    l3hashratepercentyear = l3hashrate / getyear[3] or l3hashrate * 100 - 100
+except:
+    s7hashratepercentyesterday = s7hashrate / getyesterday or s7hashrate * 100 - 100
+    s7hashratepercentweek = s7hashrate / getweek or s7hashrate * 100 - 100
+    s7hashratepercentmonth = s7hashrate / getmonth or s7hashrate * 100 - 100
+    s7hashratepercentyear = s7hashrate / getyear or s7hashrate * 100 - 100
+
+    s9hashratepercentyesterday = s9hashrate / getyesterday or s9hashrate * 100 - 100
+    s9hashratepercentweek = s9hashrate / getweek or s9hashrate * 100 - 100
+    s9hashratepercentmonth = s9hashrate / getmonth or s9hashrate * 100 - 100
+    s9hashratepercentyear = s9hashrate / getyear or s9hashrate * 100 - 100
+
+    l3hashratepercentyesterday = l3hashrate / getyesterday or l3hashrate * 100 - 100
+    l3hashratepercentweek = l3hashrate / getweek or l3hashrate * 100 - 100
+    l3hashratepercentmonth = l3hashrate / getmonth or l3hashrate * 100 - 100
+    l3hashratepercentyear = l3hashrate / getyear or l3hashrate * 100 - 100
 
 print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
 if s7hashrate_blocked>0:
