@@ -155,7 +155,7 @@ accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
 gettoday = db.get(today) or accusdvalue
 print(gettoday)
-meanaccusdvalue = mean([float(accusdvalue), accusdvalue])
+meanaccusdvalue = mean([float(gettoday[0] or accusdvalue), accusdvalue])
 
 getyesterday = db.get(today - timedelta(days=1)) or {'accusdvalue': meanaccusdvalue, 's7hashrate': s7hashrate, 's9hashrate': s9hashrate, 'l3hashrate': l3hashrate}
 getweek = db.get(today - timedelta(days=7)) or {'accusdvalue': accusdvalue, 's7hashrate': s7hashrate, 's9hashrate': s9hashrate, 'l3hashrate': l3hashrate}
