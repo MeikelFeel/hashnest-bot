@@ -200,7 +200,7 @@ print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f
 
 print('\n')
 
-print('L3 trade [%10.8f] [USD %4.2f]' % (l3tradesmedian, l3tradesmedian * ltcusd))
+print('L3 trade [%10.8f] [USD %4.4f]' % (l3tradesmedian, l3tradesmedian * ltcusd))
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
 print('High: %10.8f' % (l3_ppc_highmean))
@@ -226,7 +226,7 @@ if autobuy:
 
 print('\n')
 
-print('S9 trade [%10.8f] [USD %4.2f]' % (s9tradesmedian, s9tradesmedian * btcusd))
+print('S9 trade [%10.8f] [USD %4.4f]' % (s9tradesmedian, s9tradesmedian * btcusd))
 print('Ask:  %10.8f' % (min(s9asklist)))
 print('Max:  %10.8f' % (s9_ppc_max))
 print('High: %10.8f' % (s9_ppc_highmean))
@@ -252,7 +252,7 @@ if autobuy:
 
 print('\n')
 
-print('S7 trade [%10.8f] [USD %4.2f]' % (s7tradesmedian, s7tradesmedian * btcusd))
+print('S7 trade [%10.8f] [USD %4.4f]' % (s7tradesmedian, s7tradesmedian * btcusd))
 print('Ask:  %10.8f' % (min(s7asklist)))
 print('Max:  %10.8f' % (s7_ppc_max))
 print('High: %10.8f' % (s7_ppc_highmean))
