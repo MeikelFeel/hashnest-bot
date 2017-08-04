@@ -156,10 +156,10 @@ accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
 gettoday = json.loads(db.get(today).decode('utf-8')) or accusdvalue
 meanaccusdvalue = mean([float(gettoday[0] or accusdvalue), accusdvalue])
 
-getyesterday = db.get(today - timedelta(days=1)) or [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate]
-getweek = db.get(today - timedelta(days=7)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
-getmonth = db.get(today - timedelta(days=30)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
-getyear = db.get(today - timedelta(days=365)) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+getyesterday = json.loads(db.get(today - timedelta(days=1)).decode('utf-8')) or [meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate]
+getweek = json.loads(db.get(today - timedelta(days=7)).decode('utf-8')) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+getmonth = json.loads(db.get(today - timedelta(days=30)).decode('utf-8')) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+getyear = json.loads(db.get(today - timedelta(days=365)).decode('utf-8')) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
 
 varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
 db.set(today, varslist)
