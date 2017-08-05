@@ -250,8 +250,8 @@ print('Low:  %10.8f' % (l3_ppc_lowmean))
 print('Min:  %10.8f' % (l3_ppc_min))
 print('Bid:  %10.8f' % (max(l3bidlist)))
 
-autobuy=os.environ['l3autobuy']
-if autobuy:
+autobuy=float(os.environ['l3autobuy'])
+if autobuy>0:
     if ltc_blocked>0:
         print('\n')
         active_orders = json.loads(hashnest_api.get_orders(22))
@@ -276,8 +276,8 @@ print('Low:  %10.8f' % (s9_ppc_lowmean))
 print('Min:  %10.8f' % (s9_ppc_min))
 print('Bid:  %10.8f' % (max(s9bidlist)))
 
-autobuy=os.environ['s9autobuy']
-if autobuy:
+autobuy=float(os.environ['s9autobuy'])
+if autobuy>0:
     if btc_blocked>0:
         print('\n')
         active_orders = json.loads(hashnest_api.get_orders(21))
@@ -302,8 +302,8 @@ print('Low:  %10.8f' % (s7_ppc_lowmean))
 print('Min:  %10.8f' % (s7_ppc_min))
 print('Bid:  %10.8f' % (max(s7bidlist)))
 
-autobuy=os.environ['s7autobuy']
-if autobuy:
+autobuy=float(os.environ['s7autobuy'])
+if autobuy>0:
     if btc_blocked>0:
         print('\n')
         active_orders = json.loads(hashnest_api.get_orders(20))
