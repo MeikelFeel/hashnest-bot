@@ -153,11 +153,22 @@ today = date.today()
 accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7tradesmedian
 accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
+
+s7tradesmedianusd = s7tradesmedian * btcusd
+s9tradesmedianusd = s9tradesmedian * btcusd
+l3tradesmedianusd = l3tradesmedian * ltcusd
+
 try:
     gettoday = json.loads(db.get(today).decode('utf-8'))
     meanaccusdvalue = mean([float(gettoday[0]), accusdvalue])
+    means7tradesmedianusd = mean([float(gettoday[4]), s7tradesmedianusd])
+    means9tradesmedianusd = mean([float(gettoday[5]), s9tradesmedianusd])
+    meanl3tradesmedianusd = mean([float(gettoday[6]), l3tradesmedianusd])
 except:
     meanaccusdvalue = accusdvalue
+    means7tradesmedianusd = s7tradesmedianusd
+    means9tradesmedianusd = s9tradesmedianusd
+    meanl3tradesmedianusd = l3tradesmedianusd
 
 def getdate(days):
     try:
@@ -166,12 +177,12 @@ def getdate(days):
         date = db.get(today - timedelta(days=days))
     return date
 
-yesterday = getdate(1) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
-week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
-month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
-year = getdate(365) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate]
+yesterday = getdate(1) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd]
+week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd]
+month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd]
+year = getdate(365) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd]
 
-varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate])
+varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd])
 db.set(today, varslist)
 
 orig_stdout = sys.stdout
@@ -241,7 +252,7 @@ print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f
 
 print('\n')
 
-print('L3 trade [%10.8f] [USD %4.4f]' % (l3tradesmedian, l3tradesmedian * ltcusd))
+print('L3 trade [%10.8f] [USD %4.4f]' % (l3tradesmedian, l3tradesmedianusd))
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
 print('High: %10.8f' % (l3_ppc_highmean))
@@ -267,7 +278,7 @@ if autobuy>0:
 
 print('\n')
 
-print('S9 trade [%10.8f] [USD %4.4f]' % (s9tradesmedian, s9tradesmedian * btcusd))
+print('S9 trade [%10.8f] [USD %4.4f]' % (s9tradesmedian, s9tradesmedianusd))
 print('Ask:  %10.8f' % (min(s9asklist)))
 print('Max:  %10.8f' % (s9_ppc_max))
 print('High: %10.8f' % (s9_ppc_highmean))
@@ -293,7 +304,7 @@ if autobuy>0:
 
 print('\n')
 
-print('S7 trade [%10.8f] [USD %4.4f]' % (s7tradesmedian, s7tradesmedian * btcusd))
+print('S7 trade [%10.8f] [USD %4.4f]' % (s7tradesmedian, s7tradesmedianusd))
 print('Ask:  %10.8f' % (min(s7asklist)))
 print('Max:  %10.8f' % (s7_ppc_max))
 print('High: %10.8f' % (s7_ppc_highmean))
