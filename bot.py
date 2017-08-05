@@ -212,9 +212,9 @@ print('\n')
 
 def percentchange(val, n, period):
     try:
-        var = val / float(period[n] or val) * 100 - 100
+        var = val / float(period[n] or period) * 100 - 100
     except:
-        var = val / float(period or val) * 100 - 100
+        var = val / float(val) * 100 - 100
     return var
 
 s7hashratepercentyesterday = percentchange(s7hashrate, 1, yesterday)
