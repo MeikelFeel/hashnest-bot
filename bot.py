@@ -252,7 +252,11 @@ print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f
 
 print('\n')
 
-print('L3 trade [%10.8f] [USD %4.4f]' % (l3tradesmedian, l3tradesmedianusd))
+l3tradepercentyesterday = percentchange(l3tradesmedianusd, 6, yesterday)
+l3tradepercentweek = percentchange(l3tradesmedianusd, 6, week)
+l3tradepercentmonth = percentchange(l3tradesmedianusd, 6, month)
+l3tradepercentyear = percentchange(l3tradesmedianusd, 6, year)
+print('L3 trade [%10.8f] [USD %4.4f] [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (l3tradesmedian, l3tradesmedianusd, l3tradepercentyesterday, l3tradepercentweek, l3tradepercentmonth, l3tradepercentyear))
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
 print('High: %10.8f' % (l3_ppc_highmean))
@@ -278,7 +282,11 @@ if autobuy>0:
 
 print('\n')
 
-print('S9 trade [%10.8f] [USD %4.4f]' % (s9tradesmedian, s9tradesmedianusd))
+s9tradepercentyesterday = percentchange(s9tradesmedianusd, 5, yesterday)
+s9tradepercentweek = percentchange(s9tradesmedianusd, 5, week)
+s9tradepercentmonth = percentchange(s9tradesmedianusd, 5, month)
+s9tradepercentyear = percentchange(s9tradesmedianusd, 5, year)
+print('S9 trade [%10.8f] [USD %4.4f] [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (s9tradesmedian, s9tradesmedianusd, s9tradepercentyesterday, s9tradepercentweek, s9tradepercentmonth, s9tradepercentyear))
 print('Ask:  %10.8f' % (min(s9asklist)))
 print('Max:  %10.8f' % (s9_ppc_max))
 print('High: %10.8f' % (s9_ppc_highmean))
@@ -304,7 +312,11 @@ if autobuy>0:
 
 print('\n')
 
-print('S7 trade [%10.8f] [USD %4.4f]' % (s7tradesmedian, s7tradesmedianusd))
+s7tradepercentyesterday = percentchange(s7tradesmedianusd, 4, yesterday)
+s7tradepercentweek = percentchange(s7tradesmedianusd, 4, week)
+s7tradepercentmonth = percentchange(s7tradesmedianusd, 4, month)
+s7tradepercentyear = percentchange(s7tradesmedianusd, 4, year)
+print('S7 trade [%10.8f] [USD %4.4f] [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (s7tradesmedian, s7tradesmedianusd, s7tradepercentyesterday, s7tradepercentweek, s7tradepercentmonth, s7tradepercentyear))
 print('Ask:  %10.8f' % (min(s7asklist)))
 print('Max:  %10.8f' % (s7_ppc_max))
 print('High: %10.8f' % (s7_ppc_highmean))
