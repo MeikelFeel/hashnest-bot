@@ -306,12 +306,12 @@ if autobuy>0:
         for order in active_orders:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
-                print('Deleted order: %s of %i MHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+                print('Deleted order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
     hashrate_amount=int((btc_balance+btc_blocked)/s9_ppc_min)
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(21, hashrate_amount, s9_ppc_min, 'purchase'))
-        print('New order: %s of %i MHS, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
+        print('New order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
 
 print('\n')
 
@@ -336,12 +336,12 @@ if autobuy>0:
         for order in active_orders:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
-                print('Deleted order: %s of %i MHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+                print('Deleted order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
     hashrate_amount=int((btc_balance+btc_blocked)/s7_ppc_min)
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(20, hashrate_amount, s7_ppc_min, 'purchase'))
-        print('New order: %s of %i MHS, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
+        print('New order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
 
 print('\n')
 print('================================')
