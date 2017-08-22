@@ -278,6 +278,9 @@ if autobuy>0:
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i MHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
     hashrate_amount=int((ltc_balance+ltc_blocked)/l3_ppc_min)
+    hashrate_amount_goal=autobuy-l3hashrate
+    if hashrate_amount > hashrate_amount_goal:
+        hashrate_amount = hashrate_amount_goal
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(22, hashrate_amount, l3_ppc_min, 'purchase'))
@@ -308,6 +311,9 @@ if autobuy>0:
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
     hashrate_amount=int((btc_balance+btc_blocked)/s9_ppc_min)
+    hashrate_amount_goal=autobuy-s9hashrate
+    if hashrate_amount > hashrate_amount_goal:
+        hashrate_amount = hashrate_amount_goal
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(21, hashrate_amount, s9_ppc_min, 'purchase'))
@@ -338,6 +344,9 @@ if autobuy>0:
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
     hashrate_amount=int((btc_balance+btc_blocked)/s7_ppc_min)
+    hashrate_amount_goal=autobuy-s7hashrate
+    if hashrate_amount > hashrate_amount_goal:
+        hashrate_amount = hashrate_amount_goal
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(20, hashrate_amount, s7_ppc_min, 'purchase'))
