@@ -269,13 +269,27 @@ l3hashratepercentweek = percentchange(l3hashrate, 3, week)
 l3hashratepercentmonth = percentchange(l3hashrate, 3, month)
 l3hashratepercentyear = percentchange(l3hashrate, 3, year)
 
-print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
+s7effectivemonthlyprofit=float(btcgains)*(1-s7maintenancepercent)/1000*30
+s9effectivemonthlyprofit=float(btcgains)*(1-s9maintenancepercent)/1000*30
+l3effectivemonthlyprofit=float(ltcgains)*(1-l3maintenancepercent)/1000*30
+
+s7monthlyprofitpercent=s7effectivemonthlyprofit/s7tradesmedian
+s9monthlyprofitpercent=s9effectivemonthlyprofit/s9tradesmedian
+l3monthlyprofitpercent=l3effectivemonthlyprofit/l3tradesmedian
+
+s7monthlyusd=s7effectivemonthlyprofit*s7hashrate*btcusd
+s9monthlyusd=s9effectivemonthlyprofit*s9hashrate*btcusd
+l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
+
+monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
+
+print('%s hashrate: %i USD %4.2f %4.2f%% [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7monthlyusd, s7monthlyprofitpercent*100, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
 if s7hashrate_blocked>0:
     print('  Locked: %i' % (s7hashrate_blocked))
-print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[7]['currency']['code'], s9hashrate, s9hashratepercentyesterday, s9hashratepercentweek, s9hashratepercentmonth, s9hashratepercentyear))
+print('%s hashrate: %i USD %4.2f %4.2f%% [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[7]['currency']['code'], s9hashrate, s9monthlyusd, s9monthlyprofitpercent*100, s9hashratepercentyesterday, s9hashratepercentweek, s9hashratepercentmonth, s9hashratepercentyear))
 if s9hashrate_blocked>0:
     print('  Locked: %i' % (s9hashrate_blocked))
-print('%s hashrate: %i [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[8]['currency']['code'], l3hashrate, l3hashratepercentyesterday, l3hashratepercentweek, l3hashratepercentmonth, l3hashratepercentyear))
+print('%s hashrate: %i USD %4.2f %4.2f%% [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[8]['currency']['code'], l3hashrate, l3monthlyusd, l3monthlyprofitpercent*100, l3hashratepercentyesterday, l3hashratepercentweek, l3hashratepercentmonth, l3hashratepercentyear))
 if l3hashrate_blocked>0:
     print('  Locked: %i' % (l3hashrate_blocked))
 
@@ -285,6 +299,8 @@ accvalpercentyesterday = percentchange(accusdvalue, 0, yesterday)
 accvalpercentweek = percentchange(accusdvalue, 0, week)
 accvalpercentmonth = percentchange(accusdvalue, 0, month)
 accvalpercentyear = percentchange(accusdvalue, 0, year)
+
+print('Monthly income: USD %4.2f' % (monthlyincomeusd))
 print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (accusdvalue, accvalpercentyesterday, accvalpercentweek, accvalpercentmonth, accvalpercentyear))
 
 print('\n')
