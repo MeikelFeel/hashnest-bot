@@ -305,7 +305,7 @@ s9incomepercent=s9monthlyusd/monthlyincomeusd
 s7incomepercent=s7monthlyusd/monthlyincomeusd
 
 print('[' + '3'*(int(math.ceil(40*l3incomepercent))) + '9'*(int(math.ceil(40*s9incomepercent))) + '7'*(int(math.ceil(40*s7incomepercent))) + ']')
-print('(L3 $ %4.2f %4.2f%%) (S9 $ %4.2f %4.2f%%) (S7 $ %4.2f %4.2f%%)' % (l3incomepercent*100, l3monthlyusd, s9incomepercent*100, s9monthlyusd, s7incomepercent*100, s7monthlyusd))
+print('(L3 $%4.2f %4.2f%%) (S9 $%4.2f %4.2f%%) (S7 $%4.2f %4.2f%%)' % (l3monthlyusd, l3incomepercent*100, s9monthlyusd, s9incomepercent*100, s7monthlyusd, s7incomepercent*100))
 print(' ')
 
 accvalpercenthalfmonth = percentchange(accusdvalue, 0, halfmonth)
