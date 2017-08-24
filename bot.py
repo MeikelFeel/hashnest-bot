@@ -198,11 +198,17 @@ try:
     means7tradesmedianusd = mean([float(gettoday[4]), s7tradesmedianusd])
     means9tradesmedianusd = mean([float(gettoday[5]), s9tradesmedianusd])
     meanl3tradesmedianusd = mean([float(gettoday[6]), l3tradesmedianusd])
+    means7tradesmedian = mean([float(gettoday[7]), s7tradesmedian])
+    means9tradesmedian = mean([float(gettoday[8]), s9tradesmedian])
+    meanl3tradesmedian = mean([float(gettoday[9]), l3tradesmedian])
 except:
     meanaccusdvalue = accusdvalue
     means7tradesmedianusd = s7tradesmedianusd
     means9tradesmedianusd = s9tradesmedianusd
     meanl3tradesmedianusd = l3tradesmedianusd
+    means7tradesmedian = s7tradesmedian
+    means9tradesmedian = s9tradesmedian
+    meanl3tradesmedian = l3tradesmedian
 
 def getdate(days):
     try:
@@ -211,12 +217,12 @@ def getdate(days):
         date = db.get(today - timedelta(days=days))
     return date
 
-yesterday = getdate(1) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd]
-week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd]
-month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd]
-year = getdate(365) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd]
+yesterday = getdate(1) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
+week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
+month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
+year = getdate(365) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
 
-varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd])
+varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd, means7tradesmedian, means9tradesmedian, meanl3tradesmedian])
 db.set(today, varslist)
 
 orig_stdout = sys.stdout
