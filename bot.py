@@ -185,9 +185,9 @@ s7tradesmedianusd = s7tradesmedian * btcusd
 s9tradesmedianusd = s9tradesmedian * btcusd
 l3tradesmedianusd = l3tradesmedian * ltcusd
 
-s7maintenancepercent=0.41/(btcgains*btcusd)
-s9maintenancepercent=0.19/(btcgains*btcusd)
-l3maintenancepercent=2.7/(ltcgains*ltcusd)
+s7maintenancepercent=0.41/(float(btcgains)*btcusd)
+s9maintenancepercent=0.19/(float(btcgains)*btcusd)
+l3maintenancepercent=2.7/(float(ltcgains)*ltcusd)
 db.set('s7maintenancepercent', s7maintenancepercent)
 db.set('s9maintenancepercent', s9maintenancepercent)
 db.set('l3maintenancepercent', l3maintenancepercent)
