@@ -320,7 +320,7 @@ ltcvaluepercent = (ltc_balance + ltc_blocked) * ltcusd / accusdvalue
 print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accvalpercenthalfmonth, accvalpercentmonth))
 print('[' + '='*(int(50*l3valuepercent)) + '+'*(int(50*s9valuepercent)) + '*'*(int(50*s7valuepercent)) + '$'*(int(50*ltcvaluepercent)) + '&'*(int(50*btcvaluepercent)) + ']')
 print('(L3 = %4.2f%%) (S9 + %4.2f%%) (S7 * %4.2f%%) (LTC $ %4.2f%%) (BTC & %4.2f%%)' % (l3valuepercent*100, s9valuepercent*100, s7valuepercent*100, ltcvaluepercent*100, btcvaluepercent*100))
-print('$ %4.2f    $ %4.2f    $ %4.2f    $ %4.2f    $ %4.2f' % (l3valuepercent*accusdvalue, s9valuepercent*accusdvalue, s7valuepercent*accusdvalue, ltcvaluepercent*accusdvalue, btcvaluepercent*accusdvalue))
+print('$ %4.2f      $ %4.2f      $ %4.2f      $ %4.2f      $ %4.2f' % (l3valuepercent*accusdvalue, s9valuepercent*accusdvalue, s7valuepercent*accusdvalue, ltcvaluepercent*accusdvalue, btcvaluepercent*accusdvalue))
 
 print('\n')
 
@@ -366,11 +366,17 @@ if autobuy>0:
 
 print('\n')
 
-s9tradepercentweek = percentchange(s9tradesmedianusd, 5, week)
-s9tradepercenthalfmonth = percentchange(s9tradesmedianusd, 5, halfmonth)
-s9tradepercentmonth = percentchange(s9tradesmedianusd, 5, month)
+s9tradepercentweek = percentchange(s9tradesmedian, 8, week)
+s9tradepercenthalfmonth = percentchange(s9tradesmedian, 8, halfmonth)
+s9tradepercentmonth = percentchange(s9tradesmedian, 8, month)
 
-print('S9 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedian, s9tradesmedianusd, s9tradepercentweek, s9tradepercenthalfmonth, s9tradepercentmonth))
+s9tradepercentweekusd = percentchange(s9tradesmedianusd, 5, week)
+s9tradepercenthalfmonthusd = percentchange(s9tradesmedianusd, 5, halfmonth)
+s9tradepercentmonthusd = percentchange(s9tradesmedianusd, 5, month)
+
+print('S9 trade')
+print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedianusd, s9tradepercentweekusd, s9tradepercenthalfmonthusd, s9tradepercentmonthusd))
+print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedian, s9tradepercentweek, s9tradepercenthalfmonth, s9tradepercentmonth))
 print('Ask:  %10.8f' % (min(s9asklist)))
 print('Max:  %10.8f' % (s9_ppc_max))
 print('High: %10.8f' % (s9_ppc_highmean))
@@ -393,7 +399,7 @@ if autobuy>0:
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
     smartbuy=float(os.environ['smartbuy'])
-    if smartbuy < 0 and s9tradepercentweek > smartbuy:
+    if smartbuy < 0 and s9tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
         print('\n')
@@ -402,11 +408,17 @@ if autobuy>0:
 
 print('\n')
 
-s7tradepercentweek = percentchange(s7tradesmedianusd, 4, week)
-s7tradepercenthalfmonth = percentchange(s7tradesmedianusd, 4, halfmonth)
-s7tradepercentmonth = percentchange(s7tradesmedianusd, 4, month)
+s7tradepercentweek = percentchange(s7tradesmedian, 7, week)
+s7tradepercenthalfmonth = percentchange(s7tradesmedian, 7, halfmonth)
+s7tradepercentmonth = percentchange(s7tradesmedian, 7, month)
 
-print('S7 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradesmedianusd, s7tradepercentweek, s7tradepercenthalfmonth, s7tradepercentmonth))
+s7tradepercentweekusd = percentchange(s7tradesmedianusd, 4, week)
+s7tradepercenthalfmonthusd = percentchange(s7tradesmedianusd, 4, halfmonth)
+s7tradepercentmonthusd = percentchange(s7tradesmedianusd, 4, month)
+
+print('S7 trade')
+print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedianusd, s7tradepercentweekusd, s7tradepercenthalfmonthusd, s7tradepercentmonthusd))
+print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradepercentweek, s7tradepercenthalfmonth, s7tradepercentmonth))
 print('Ask:  %10.8f' % (min(s7asklist)))
 print('Max:  %10.8f' % (s7_ppc_max))
 print('High: %10.8f' % (s7_ppc_highmean))
@@ -429,7 +441,7 @@ if autobuy>0:
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
     smartbuy=float(os.environ['smartbuy'])
-    if smartbuy < 0 and s7tradepercentweek > smartbuy:
+    if smartbuy < 0 and s7tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
         print('\n')
