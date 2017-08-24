@@ -290,15 +290,15 @@ l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
 
 monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
 
-print('%s hashrate: %i (Monthly USD %4.2f / %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[8]['currency']['code'], l3hashrate, l3monthlyusd, l3monthlyprofitpercent*100, l3hashratepercentyesterday, l3hashratepercentweek, l3hashratepercentmonth, l3hashratepercentyear))
+print('L3 MH/s: %i [%4.2f%% 7d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (l3hashrate, l3hashratepercentweek, l3hashratepercentmonth, l3monthlyusd, l3monthlyprofitpercent*100))
 if l3hashrate_blocked>0:
     print('  Locked: %i' % (l3hashrate_blocked))
 
-print('%s hashrate: %i (Monthly USD %4.2f / %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[7]['currency']['code'], s9hashrate, s9monthlyusd, s9monthlyprofitpercent*100, s9hashratepercentyesterday, s9hashratepercentweek, s9hashratepercentmonth, s9hashratepercentyear))
+print('S9 GH/s: %i [%4.2f%% 7d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (s9hashrate, s9hashratepercentweek, s9hashratepercentmonth, s9monthlyusd, s9monthlyprofitpercent*100))
 if s9hashrate_blocked>0:
     print('  Locked: %i' % (s9hashrate_blocked))
 
-print('%s hashrate: %i (Monthly USD %4.2f / %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7monthlyusd, s7monthlyprofitpercent*100, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
+print('S7 GH/s: %i [%4.2f%% 7d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (s7hashrate, s7hashratepercentweek, s7hashratepercentmonth, s7monthlyusd, s7monthlyprofitpercent*100))
 if s7hashrate_blocked>0:
     print('  Locked: %i' % (s7hashrate_blocked))
 
@@ -310,7 +310,7 @@ accvalpercentmonth = percentchange(accusdvalue, 0, month)
 accvalpercentyear = percentchange(accusdvalue, 0, year)
 
 print('Monthly income: USD %4.2f' % (monthlyincomeusd))
-print('Account value: USD %4.2f [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (accusdvalue, accvalpercentyesterday, accvalpercentweek, accvalpercentmonth, accvalpercentyear))
+print('Acc. value: USD %4.2f [%4.2f%% 30d]' % (accusdvalue, accvalpercentmonth))
 
 print('\n')
 
@@ -318,7 +318,7 @@ l3tradepercentyesterday = percentchange(l3tradesmedianusd, 6, yesterday)
 l3tradepercentweek = percentchange(l3tradesmedianusd, 6, week)
 l3tradepercentmonth = percentchange(l3tradesmedianusd, 6, month)
 l3tradepercentyear = percentchange(l3tradesmedianusd, 6, year)
-print('L3 trade [%10.8f] [USD %4.4f] [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (l3tradesmedian, l3tradesmedianusd, l3tradepercentyesterday, l3tradepercentweek, l3tradepercentmonth, l3tradepercentyear))
+print('L3 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradesmedianusd, l3tradepercentweek, l3tradepercentmonth))
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
 print('High: %10.8f' % (l3_ppc_highmean))
@@ -335,7 +335,7 @@ if autobuy>0:
         for order in active_orders:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
-                print('Deleted order: %s of %i MHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+                print('Deleted order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
     hashrate_amount=int((ltc_balance+ltc_blocked)/l3_ppc_min)
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
@@ -348,7 +348,7 @@ if autobuy>0:
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(22, hashrate_amount, l3_ppc_min, 'purchase'))
-        print('New order: %s of %i MHS, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
+        print('New order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
 
 print('\n')
 
@@ -356,7 +356,7 @@ s9tradepercentyesterday = percentchange(s9tradesmedianusd, 5, yesterday)
 s9tradepercentweek = percentchange(s9tradesmedianusd, 5, week)
 s9tradepercentmonth = percentchange(s9tradesmedianusd, 5, month)
 s9tradepercentyear = percentchange(s9tradesmedianusd, 5, year)
-print('S9 trade [%10.8f] [USD %4.4f] [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (s9tradesmedian, s9tradesmedianusd, s9tradepercentyesterday, s9tradepercentweek, s9tradepercentmonth, s9tradepercentyear))
+print('S9 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 30d]' % (s9tradesmedian, s9tradesmedianusd, s9tradepercentweek, s9tradepercentmonth))
 print('Ask:  %10.8f' % (min(s9asklist)))
 print('Max:  %10.8f' % (s9_ppc_max))
 print('High: %10.8f' % (s9_ppc_highmean))
@@ -373,7 +373,7 @@ if autobuy>0:
         for order in active_orders:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
-                print('Deleted order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+                print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
     hashrate_amount=int((btc_balance+btc_blocked)/s9_ppc_min)
     hashrate_amount_goal=autobuy-s9hashrate
     if hashrate_amount > hashrate_amount_goal:
@@ -386,7 +386,7 @@ if autobuy>0:
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(21, hashrate_amount, s9_ppc_min, 'purchase'))
-        print('New order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
+        print('New order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
 
 print('\n')
 
@@ -394,7 +394,7 @@ s7tradepercentyesterday = percentchange(s7tradesmedianusd, 4, yesterday)
 s7tradepercentweek = percentchange(s7tradesmedianusd, 4, week)
 s7tradepercentmonth = percentchange(s7tradesmedianusd, 4, month)
 s7tradepercentyear = percentchange(s7tradesmedianusd, 4, year)
-print('S7 trade [%10.8f] [USD %4.4f] [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (s7tradesmedian, s7tradesmedianusd, s7tradepercentyesterday, s7tradepercentweek, s7tradepercentmonth, s7tradepercentyear))
+print('S7 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradesmedianusd, s7tradepercentweek, s7tradepercentmonth))
 print('Ask:  %10.8f' % (min(s7asklist)))
 print('Max:  %10.8f' % (s7_ppc_max))
 print('High: %10.8f' % (s7_ppc_highmean))
@@ -411,7 +411,7 @@ if autobuy>0:
         for order in active_orders:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
-                print('Deleted order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+                print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
     hashrate_amount=int((btc_balance+btc_blocked)/s7_ppc_min)
     hashrate_amount_goal=autobuy-s7hashrate
     if hashrate_amount > hashrate_amount_goal:
@@ -424,7 +424,7 @@ if autobuy>0:
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(20, hashrate_amount, s7_ppc_min, 'purchase'))
-        print('New order: %s of %i GHS, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
+        print('New order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
 
 print('\n')
 print('================================')
