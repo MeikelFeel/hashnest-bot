@@ -192,9 +192,22 @@ db.set('s7maintenancepercent', s7maintenancepercent)
 db.set('s9maintenancepercent', s9maintenancepercent)
 db.set('l3maintenancepercent', l3maintenancepercent)
 
+s7effectivemonthlyprofit=float(btcgains)*(1-s7maintenancepercent)/1000*30
+s9effectivemonthlyprofit=float(btcgains)*(1-s9maintenancepercent)/1000*30
+l3effectivemonthlyprofit=float(ltcgains)*(1-l3maintenancepercent)/1000*30
+
+s7monthlyprofitpercent=s7effectivemonthlyprofit/s7tradesmedian
+s9monthlyprofitpercent=s9effectivemonthlyprofit/s9tradesmedian
+l3monthlyprofitpercent=l3effectivemonthlyprofit/l3tradesmedian
+
+s7monthlyusd=s7effectivemonthlyprofit*s7hashrate*btcusd
+s9monthlyusd=s9effectivemonthlyprofit*s9hashrate*btcusd
+l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
+
+monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
+
 try:
     gettoday = json.loads(db.get(today).decode('utf-8'))
-    meanaccusdvalue = mean([float(gettoday[0]), accusdvalue])
     means7tradesmedianusd = mean([float(gettoday[4]), s7tradesmedianusd])
     means9tradesmedianusd = mean([float(gettoday[5]), s9tradesmedianusd])
     meanl3tradesmedianusd = mean([float(gettoday[6]), l3tradesmedianusd])
@@ -202,7 +215,6 @@ try:
     means9tradesmedian = mean([float(gettoday[8]), s9tradesmedian])
     meanl3tradesmedian = mean([float(gettoday[9]), l3tradesmedian])
 except:
-    meanaccusdvalue = accusdvalue
     means7tradesmedianusd = s7tradesmedianusd
     means9tradesmedianusd = s9tradesmedianusd
     meanl3tradesmedianusd = l3tradesmedianusd
@@ -217,11 +229,11 @@ def getdate(days):
         date = db.get(today - timedelta(days=days))
     return date
 
-week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
-halfmonth = getdate(15) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
-month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
+week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd]
+halfmonth = getdate(15) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd]
+month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd]
 
-varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd, means7tradesmedian, means9tradesmedian, meanl3tradesmedian])
+varslist = json.dumps([accusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd, means7tradesmedian, means9tradesmedian, meanl3tradesmedian, monthlyincomeusd])
 db.set(today, varslist)
 
 orig_stdout = sys.stdout
@@ -269,20 +281,6 @@ s9hashratepercentmonth = percentchange(s9hashrate, 2, month)
 l3hashratepercenthalfmonth = percentchange(l3hashrate, 3, halfmonth)
 l3hashratepercentmonth = percentchange(l3hashrate, 3, month)
 
-s7effectivemonthlyprofit=float(btcgains)*(1-s7maintenancepercent)/1000*30
-s9effectivemonthlyprofit=float(btcgains)*(1-s9maintenancepercent)/1000*30
-l3effectivemonthlyprofit=float(ltcgains)*(1-l3maintenancepercent)/1000*30
-
-s7monthlyprofitpercent=s7effectivemonthlyprofit/s7tradesmedian
-s9monthlyprofitpercent=s9effectivemonthlyprofit/s9tradesmedian
-l3monthlyprofitpercent=l3effectivemonthlyprofit/l3tradesmedian
-
-s7monthlyusd=s7effectivemonthlyprofit*s7hashrate*btcusd
-s9monthlyusd=s9effectivemonthlyprofit*s9hashrate*btcusd
-l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
-
-monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
-
 print('L3 %4.2f%% %i MH/s [%4.2f%% 15d] [%4.2f%% 30d]' % (l3monthlyprofitpercent*100, l3hashrate, l3hashratepercenthalfmonth, l3hashratepercentmonth))
 if l3hashrate_blocked>0:
     print('  Locked: %i' % (l3hashrate_blocked))
@@ -297,10 +295,10 @@ if s7hashrate_blocked>0:
 
 print('\n')
 
-accvalpercenthalfmonth = percentchange(accusdvalue, 0, halfmonth)
-accvalpercentmonth = percentchange(accusdvalue, 0, month)
+monthlyincomepercenthalfmonth = percentchange(monthlyincomeusd, 10, halfmonth)
+monthlyincomepercentmonth = percentchange(monthlyincomeusd, 10, month)
 
-print('Monthly income: USD %4.2f' % (monthlyincomeusd))
+print('Monthly income: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (monthlyincomeusd, monthlyincomepercenthalfmonth, monthlyincomepercentmonth))
 
 l3incomepercent=l3monthlyusd/monthlyincomeusd
 s9incomepercent=s9monthlyusd/monthlyincomeusd
@@ -310,6 +308,9 @@ print('[' + '3'*(int(math.ceil(40*l3incomepercent))) + '9'*(int(math.ceil(40*s9i
 print('   (L3 %4.2f%%)     (S9 %4.2f%%)     (S7 %4.2f%%)' % (l3incomepercent*100, s9incomepercent*100, s7incomepercent*100))
 print('    $ %4.2f        $ %4.2f         $ %4.2f' % (l3monthlyusd, s9monthlyusd, s7monthlyusd))
 print(' ')
+
+accvalpercenthalfmonth = percentchange(accusdvalue, 0, halfmonth)
+accvalpercentmonth = percentchange(accusdvalue, 0, month)
 
 l3valuepercent = l3hashrate * l3tradesmedian * ltcusd / accusdvalue
 s9valuepercent = s9hashrate * s9tradesmedian * btcusd / accusdvalue
