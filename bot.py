@@ -334,6 +334,11 @@ if autobuy>0:
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
+    smartbuy=float(os.environ['smartbuy'])
+    if smartbuy < 0 and l3tradepercentweek < smartbuy:
+        print('BUY BUY BUY')
+    else:
+        hashrate_amount = 0
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(22, hashrate_amount, l3_ppc_min, 'purchase'))
@@ -367,6 +372,11 @@ if autobuy>0:
     hashrate_amount_goal=autobuy-s9hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
+    smartbuy=float(os.environ['smartbuy'])
+    if smartbuy < 0 and s9tradepercentweek < smartbuy:
+        print('BUY BUY BUY')
+    else:
+        hashrate_amount = 0
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(21, hashrate_amount, s9_ppc_min, 'purchase'))
@@ -400,6 +410,11 @@ if autobuy>0:
     hashrate_amount_goal=autobuy-s7hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
+    smartbuy=float(os.environ['smartbuy'])
+    if smartbuy < 0 and s7tradepercentweek < smartbuy:
+        print('BUY BUY BUY')
+    else:
+        hashrate_amount = 0
     if hashrate_amount >= 1:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(20, hashrate_amount, s7_ppc_min, 'purchase'))
