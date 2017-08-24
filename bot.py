@@ -260,15 +260,12 @@ def percentchange(val, n, period):
             var = val / float(val) * 100 - 100
     return var
 
-s7hashratepercentweek = percentchange(s7hashrate, 1, week)
 s7hashratepercenthalfmonth = percentchange(s7hashrate, 1, halfmonth)
 s7hashratepercentmonth = percentchange(s7hashrate, 1, month)
 
-s9hashratepercentweek = percentchange(s9hashrate, 2, week)
 s9hashratepercenthalfmonth = percentchange(s9hashrate, 2, halfmonth)
 s9hashratepercentmonth = percentchange(s9hashrate, 2, month)
 
-l3hashratepercentweek = percentchange(l3hashrate, 3, week)
 l3hashratepercenthalfmonth = percentchange(l3hashrate, 3, halfmonth)
 l3hashratepercentmonth = percentchange(l3hashrate, 3, month)
 
@@ -286,15 +283,15 @@ l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
 
 monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
 
-print('L3 MH/s: %i [%4.2f%% 7d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (l3hashrate, l3hashratepercentweek, l3hashratepercentmonth, l3monthlyusd, l3monthlyprofitpercent*100))
+print('L3 MH/s: %i [%4.2f%% 15d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (l3hashrate, l3hashratepercenthalfmonth, l3hashratepercentmonth, l3monthlyusd, l3monthlyprofitpercent*100))
 if l3hashrate_blocked>0:
     print('  Locked: %i' % (l3hashrate_blocked))
 
-print('S9 GH/s: %i [%4.2f%% 7d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (s9hashrate, s9hashratepercentweek, s9hashratepercentmonth, s9monthlyusd, s9monthlyprofitpercent*100))
+print('S9 GH/s: %i [%4.2f%% 15d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (s9hashrate, s9hashratepercenthalfmonth, s9hashratepercentmonth, s9monthlyusd, s9monthlyprofitpercent*100))
 if s9hashrate_blocked>0:
     print('  Locked: %i' % (s9hashrate_blocked))
 
-print('S7 GH/s: %i [%4.2f%% 7d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (s7hashrate, s7hashratepercentweek, s7hashratepercentmonth, s7monthlyusd, s7monthlyprofitpercent*100))
+print('S7 GH/s: %i [%4.2f%% 15d] [%4.2f%% 30d] (Monthly USD %4.2f / %4.2f%%)' % (s7hashrate, s7hashratepercenthalfmonth, s7hashratepercentmonth, s7monthlyusd, s7monthlyprofitpercent*100))
 if s7hashrate_blocked>0:
     print('  Locked: %i' % (s7hashrate_blocked))
 
@@ -313,6 +310,9 @@ l3tradepercenthalfmonth = percentchange(l3tradesmedianusd, 6, halfmonth)
 l3tradepercentmonth = percentchange(l3tradesmedianusd, 6, month)
 
 print('L3 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradesmedianusd, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
+print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
+print('[LTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
+print('\n')
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
 print('High: %10.8f' % (l3_ppc_highmean))
