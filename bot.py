@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import json, os, sys, redis, requests
+import json, os, sys, redis, requests, math
 from hashnest import hashnest
 from datetime import datetime, timedelta, date
 from statistics import mean, harmonic_mean, median_high, median, median_low
@@ -306,7 +306,7 @@ l3incomepercent=l3monthlyusd/monthlyincomeusd
 s9incomepercent=s9monthlyusd/monthlyincomeusd
 s7incomepercent=s7monthlyusd/monthlyincomeusd
 
-print('[' + '3'*(int(50*l3incomepercent)) + '9'*(int(50*s9incomepercent)) + '7'*(int(50*s7incomepercent)) + ']')
+print('[' + '3'*(int(50*l3incomepercent)) + '9'*(int(50*s9incomepercent)) + '7'*(int(math.ceil(50*s7incomepercent))) + ']')
 print('   (L3 %4.2f%%)     (S9 %4.2f%%)     (S7 %4.2f%%)' % (l3incomepercent*100, s9incomepercent*100, s7incomepercent*100))
 print('    $ %4.2f        $ %4.2f         $ %4.2f' % (l3monthlyusd, s9monthlyusd, s7monthlyusd))
 print(' ')
