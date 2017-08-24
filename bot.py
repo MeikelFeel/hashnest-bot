@@ -309,8 +309,18 @@ s7incomepercent=s7monthlyusd/monthlyincomeusd
 print('[' + '='*(int(50*l3incomepercent)) + '+'*(int(50*s9incomepercent)) + '*'*(int(50*s7incomepercent)) + ']')
 print('   L3 (=) %4.2f%%    S9 (+) %4.2f%%    S7 (*) %4.2f%%' % (l3incomepercent*100, s9incomepercent*100, s7incomepercent*100))
 print('$ %4.2f (%4.2f%%)  $ %4.2f (%4.2f%%)  $ %4.2f (%4.2f%%)' % (l3monthlyusd, l3monthlyprofitpercent*100, s9monthlyusd, s9monthlyprofitpercent*100, s7monthlyusd, s7monthlyprofitpercent*100))
+print(' ')
+
+l3valuepercent = l3hashrate * l3tradesmedian * ltcusd / accusdvalue
+s9valuepercent = s9hashrate * s9tradesmedian * btcusd / accusdvalue
+s7valuepercent = s7hashrate * s7tradesmedian * btcusd / accusdvalue
+btcvaluepercent = (btc_balance + btc_blocked) * btcusd / accusdvalue
+ltcvaluepercent = (ltc_balance + ltc_blocked) * ltcusd / accusdvalue
 
 print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accvalpercenthalfmonth, accvalpercentmonth))
+print('[' + '='*(int(50*l3valuepercent)) + '+'*(int(50*s9valuepercent)) + '*'*(int(50*s7valuepercent)) + '$'*(int(50*ltcvaluepercent)) + '&'*(int(50*btcvaluepercent)) + ']')
+print('  L3 (=) %4.2f%%  S9 (+) %4.2f%%  S7 (*) %4.2f%% LTC ($) %4.2f%% BTC (&) %4.2f%%' % (l3valuepercent*100, s9valuepercent*100, s7valuepercent*100, ltcvaluepercent*100, btcvaluepercent*100))
+print('$ %4.2f  $ %4.2f $ %4.2f $ %4.2f $ %4.2f' % (l3valuepercent*accusdvalue, s9valuepercent*accusdvalue, s7valuepercent*accusdvalue, ltcvaluepercent*accusdvalue, btcvaluepercent*accusdvalue))
 
 print('\n')
 
