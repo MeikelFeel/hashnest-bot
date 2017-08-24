@@ -217,10 +217,9 @@ def getdate(days):
         date = db.get(today - timedelta(days=days))
     return date
 
-yesterday = getdate(1) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
 week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
+halfmonth = getdate(15) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
 month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
-year = getdate(365) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian]
 
 varslist = json.dumps([meanaccusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd, means7tradesmedian, means9tradesmedian, meanl3tradesmedian])
 db.set(today, varslist)
@@ -261,20 +260,17 @@ def percentchange(val, n, period):
             var = val / float(val) * 100 - 100
     return var
 
-s7hashratepercentyesterday = percentchange(s7hashrate, 1, yesterday)
 s7hashratepercentweek = percentchange(s7hashrate, 1, week)
+s7hashratepercenthalfmonth = percentchange(s7hashrate, 1, halfmonth)
 s7hashratepercentmonth = percentchange(s7hashrate, 1, month)
-s7hashratepercentyear = percentchange(s7hashrate, 1, year)
 
-s9hashratepercentyesterday = percentchange(s9hashrate, 2, yesterday)
 s9hashratepercentweek = percentchange(s9hashrate, 2, week)
+s9hashratepercenthalfmonth = percentchange(s9hashrate, 2, halfmonth)
 s9hashratepercentmonth = percentchange(s9hashrate, 2, month)
-s9hashratepercentyear = percentchange(s9hashrate, 2, year)
 
-l3hashratepercentyesterday = percentchange(l3hashrate, 3, yesterday)
 l3hashratepercentweek = percentchange(l3hashrate, 3, week)
+l3hashratepercenthalfmonth = percentchange(l3hashrate, 3, halfmonth)
 l3hashratepercentmonth = percentchange(l3hashrate, 3, month)
-l3hashratepercentyear = percentchange(l3hashrate, 3, year)
 
 s7effectivemonthlyprofit=float(btcgains)*(1-s7maintenancepercent)/1000*30
 s9effectivemonthlyprofit=float(btcgains)*(1-s9maintenancepercent)/1000*30
@@ -304,21 +300,19 @@ if s7hashrate_blocked>0:
 
 print('\n')
 
-accvalpercentyesterday = percentchange(accusdvalue, 0, yesterday)
-accvalpercentweek = percentchange(accusdvalue, 0, week)
+accvalpercenthalfmonth = percentchange(accusdvalue, 0, halfmonth)
 accvalpercentmonth = percentchange(accusdvalue, 0, month)
-accvalpercentyear = percentchange(accusdvalue, 0, year)
 
 print('Monthly income: USD %4.2f' % (monthlyincomeusd))
-print('Acc. value: USD %4.2f [%4.2f%% 30d]' % (accusdvalue, accvalpercentmonth))
+print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accvalpercenthalfmonth, accvalpercentmonth))
 
 print('\n')
 
-l3tradepercentyesterday = percentchange(l3tradesmedianusd, 6, yesterday)
 l3tradepercentweek = percentchange(l3tradesmedianusd, 6, week)
+l3tradepercenthalfmonth = percentchange(l3tradesmedianusd, 6, halfmonth)
 l3tradepercentmonth = percentchange(l3tradesmedianusd, 6, month)
-l3tradepercentyear = percentchange(l3tradesmedianusd, 6, year)
-print('L3 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradesmedianusd, l3tradepercentweek, l3tradepercentmonth))
+
+print('L3 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradesmedianusd, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
 print('High: %10.8f' % (l3_ppc_highmean))
@@ -352,11 +346,11 @@ if autobuy>0:
 
 print('\n')
 
-s9tradepercentyesterday = percentchange(s9tradesmedianusd, 5, yesterday)
 s9tradepercentweek = percentchange(s9tradesmedianusd, 5, week)
+s9tradepercenthalfmonth = percentchange(s9tradesmedianusd, 5, halfmonth)
 s9tradepercentmonth = percentchange(s9tradesmedianusd, 5, month)
-s9tradepercentyear = percentchange(s9tradesmedianusd, 5, year)
-print('S9 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 30d]' % (s9tradesmedian, s9tradesmedianusd, s9tradepercentweek, s9tradepercentmonth))
+
+print('S9 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedian, s9tradesmedianusd, s9tradepercentweek, s9tradepercenthalfmonth, s9tradepercentmonth))
 print('Ask:  %10.8f' % (min(s9asklist)))
 print('Max:  %10.8f' % (s9_ppc_max))
 print('High: %10.8f' % (s9_ppc_highmean))
@@ -390,11 +384,11 @@ if autobuy>0:
 
 print('\n')
 
-s7tradepercentyesterday = percentchange(s7tradesmedianusd, 4, yesterday)
 s7tradepercentweek = percentchange(s7tradesmedianusd, 4, week)
+s7tradepercenthalfmonth = percentchange(s7tradesmedianusd, 4, halfmonth)
 s7tradepercentmonth = percentchange(s7tradesmedianusd, 4, month)
-s7tradepercentyear = percentchange(s7tradesmedianusd, 4, year)
-print('S7 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradesmedianusd, s7tradepercentweek, s7tradepercentmonth))
+
+print('S7 trade [%10.8f] [USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradesmedianusd, s7tradepercentweek, s7tradepercenthalfmonth, s7tradepercentmonth))
 print('Ask:  %10.8f' % (min(s7asklist)))
 print('Max:  %10.8f' % (s7_ppc_max))
 print('High: %10.8f' % (s7_ppc_highmean))
