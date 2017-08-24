@@ -337,7 +337,7 @@ if autobuy>0:
     smartbuy=float(os.environ['smartbuy'])
     if smartbuy < 0 and l3tradepercentweek < smartbuy:
         print('BUY BUY BUY')
-    else:
+    elif smartbuy < 0:
         hashrate_amount = 0
     if hashrate_amount >= 1:
         print('\n')
@@ -375,7 +375,7 @@ if autobuy>0:
     smartbuy=float(os.environ['smartbuy'])
     if smartbuy < 0 and s9tradepercentweek < smartbuy:
         print('BUY BUY BUY')
-    else:
+    elif smartbuy < 0:
         hashrate_amount = 0
     if hashrate_amount >= 1:
         print('\n')
@@ -413,7 +413,7 @@ if autobuy>0:
     smartbuy=float(os.environ['smartbuy'])
     if smartbuy < 0 and s7tradepercentweek < smartbuy:
         print('BUY BUY BUY')
-    else:
+    elif smartbuy < 0:
         hashrate_amount = 0
     if hashrate_amount >= 1:
         print('\n')
