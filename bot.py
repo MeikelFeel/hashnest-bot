@@ -335,11 +335,9 @@ if autobuy>0:
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
     smartbuy=float(os.environ['smartbuy'])
-    if smartbuy < 0 and l3tradepercentweek < smartbuy:
-        print('BUY BUY BUY')
-    elif smartbuy < 0:
+    if smartbuy < 0 and l3tradepercentweek > smartbuy:
         hashrate_amount = 0
-    if hashrate_amount >= 1:
+    if hashrate_amount > 0:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(22, hashrate_amount, l3_ppc_min, 'purchase'))
         print('New order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
@@ -373,11 +371,9 @@ if autobuy>0:
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
     smartbuy=float(os.environ['smartbuy'])
-    if smartbuy < 0 and s9tradepercentweek < smartbuy:
-        print('BUY BUY BUY')
-    elif smartbuy < 0:
+    if smartbuy < 0 and s9tradepercentweek > smartbuy:
         hashrate_amount = 0
-    if hashrate_amount >= 1:
+    if hashrate_amount > 0:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(21, hashrate_amount, s9_ppc_min, 'purchase'))
         print('New order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
@@ -411,11 +407,9 @@ if autobuy>0:
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
     smartbuy=float(os.environ['smartbuy'])
-    if smartbuy < 0 and s7tradepercentweek < smartbuy:
-        print('BUY BUY BUY')
-    elif smartbuy < 0:
+    if smartbuy < 0 and s7tradepercentweek > smartbuy:
         hashrate_amount = 0
-    if hashrate_amount >= 1:
+    if hashrate_amount > 0:
         print('\n')
         created_order = json.loads(hashnest_api.create_order(20, hashrate_amount, s7_ppc_min, 'purchase'))
         print('New order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (created_order['category'], float(created_order['amount']), float(created_order['ppc']), float(created_order['amount']) * float(created_order['ppc']), created_order['created_at']))
