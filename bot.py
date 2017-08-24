@@ -301,6 +301,15 @@ accvalpercenthalfmonth = percentchange(accusdvalue, 0, halfmonth)
 accvalpercentmonth = percentchange(accusdvalue, 0, month)
 
 print('Monthly income: USD %4.2f' % (monthlyincomeusd))
+
+l3incomepercent=l3monthlyusd/monthlyincomeusd
+s9incomepercent=s9monthlyusd/monthlyincomeusd
+s7incomepercent=s7monthlyusd/monthlyincomeusd
+
+print('[' + '='*(int(50*l3incomepercent)) + '+'*(int(50*s9incomepercent)) + '*'*(int(50*s7incomepercent)) + ']')
+print('   L3 (=) %4.2f%%    S9 (+) %4.2f%%    S7 (*) %4.2f%%' % (l3incomepercent*100, s9incomepercent*100, s7incomepercent*100))
+print('$ %4.2f (%4.2f%%)  $ %4.2f (%4.2f%%)  $ %4.2f (%4.2f%%)' % (l3monthlyusd, l3monthlyprofitpercent*100, s9monthlyusd, s9monthlyprofitpercent*100, s7monthlyusd, s7monthlyprofitpercent*100))
+
 print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accvalpercenthalfmonth, accvalpercentmonth))
 
 print('\n')
