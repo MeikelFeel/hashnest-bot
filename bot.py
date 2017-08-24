@@ -15,6 +15,33 @@ def getCryptoPrice(currency_pair):
 
 db=redis.from_url(os.environ['REDIS_URL'])
 
+def antpoolCalculator(coin, diff):
+    if coin == 'BTC':
+        unit='1000000000'
+        blockHeight = str(json.loads(requests.get('https://api.blockcypher.com/v1/btc/main').text)['height'])
+    else:
+        unit='1000000'
+        blockHeight = str(json.loads(requests.get('https://api.blockcypher.com/v1/ltc/main').text)['height'])
+
+    URL = 'https://www.antpool.com/support.htm?m=calculatorResult&calculatorCoinType=' + coin + '&diff=' + diff + '&unit=' + unit + '&unitCount=1000&payPercent=0&blockHeight=' + blockHeight
+    try:
+        r = requests.get(URL)
+        dayGains = json.loads(r.text)['Data']['day']
+        return str(dayGains).translate({ord(c): None for c in coin})
+    except requests.ConnectionError:
+        print('Error querying Antpool API')
+
+poolData = json.loads(requests.get('https://www.antpool.com/webService.htm').text)['Data']['homeForm']
+
+btcNetworkDiff = str(poolData['networkDiff']).translate({ord(c): None for c in ','})
+ltcNetworkDiff = str(poolData['ltcNetworkDiff']).translate({ord(c): None for c in ','})
+
+btcGains=antpoolCalculator('BTC', btcNetworkDiff)
+ltcGains=antpoolCalculator('LTC', ltcNetworkDiff)
+
+db.set('btcGains', btcGains)
+db.set('ltcGains', ltcGains)
+
 #hashnest_api = hashnest('username', 'access_key', 'secret_key')
 hashnest_api = hashnest(os.environ['username'], os.environ['access_key'], os.environ['secret_key'])
 
