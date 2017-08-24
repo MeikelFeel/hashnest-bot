@@ -306,7 +306,7 @@ l3incomepercent=l3monthlyusd/monthlyincomeusd
 s9incomepercent=s9monthlyusd/monthlyincomeusd
 s7incomepercent=s7monthlyusd/monthlyincomeusd
 
-print('[' + '3'*(int(50*l3incomepercent)) + '9'*(int(50*s9incomepercent)) + '7'*(int(math.ceil(50*s7incomepercent))) + ']')
+print('[' + '3'*(int(math.ceil(50*l3incomepercent))) + '9'*(int(math.ceil(50*s9incomepercent))) + '7'*(int(math.ceil(50*s7incomepercent))) + ']')
 print('   (L3 %4.2f%%)     (S9 %4.2f%%)     (S7 %4.2f%%)' % (l3incomepercent*100, s9incomepercent*100, s7incomepercent*100))
 print('    $ %4.2f        $ %4.2f         $ %4.2f' % (l3monthlyusd, s9monthlyusd, s7monthlyusd))
 print(' ')
@@ -318,7 +318,7 @@ btcvaluepercent = (btc_balance + btc_blocked) * btcusd / accusdvalue
 ltcvaluepercent = (ltc_balance + ltc_blocked) * ltcusd / accusdvalue
 
 print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accvalpercenthalfmonth, accvalpercentmonth))
-print('[' + '3'*(int(50*l3valuepercent)) + '9'*(int(50*s9valuepercent)) + '7'*(int(50*s7valuepercent)) + 'Ł'*(int(50*ltcvaluepercent)) + 'Ƀ'*(int(50*btcvaluepercent)) + ']')
+print('[' + '3'*(int(math.ceil(50*l3valuepercent))) + '9'*(int(math.ceil(50*s9valuepercent))) + '7'*(int(math.ceil(50*s7valuepercent))) + 'Ł'*(int(math.ceil(50*ltcvaluepercent))) + 'Ƀ'*(int(math.ceil(50*btcvaluepercent))) + ']')
 print('(L3  %4.2f%%) (S9 %4.2f%%) (S7 %4.2f%%) (ŁTC %4.2f%%) (ɃTC %4.2f%%)' % (l3valuepercent*100, s9valuepercent*100, s7valuepercent*100, ltcvaluepercent*100, btcvaluepercent*100))
 print(' $ %4.2f    $ %4.2f    $ %4.2f    $ %4.2f     $ %4.2f' % (l3valuepercent*accusdvalue, s9valuepercent*accusdvalue, s7valuepercent*accusdvalue, ltcvaluepercent*accusdvalue, btcvaluepercent*accusdvalue))
 
