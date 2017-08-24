@@ -284,15 +284,15 @@ l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
 
 monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
 
-print('%s hashrate: %i (Monthly USD %4.2f - %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[8]['currency']['code'], l3hashrate, l3monthlyusd, l3monthlyprofitpercent*100, l3hashratepercentyesterday, l3hashratepercentweek, l3hashratepercentmonth, l3hashratepercentyear))
+print('%s hashrate: %i (Monthly USD %4.2f / %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[8]['currency']['code'], l3hashrate, l3monthlyusd, l3monthlyprofitpercent*100, l3hashratepercentyesterday, l3hashratepercentweek, l3hashratepercentmonth, l3hashratepercentyear))
 if l3hashrate_blocked>0:
     print('  Locked: %i' % (l3hashrate_blocked))
 
-print('%s hashrate: %i (Monthly USD %4.2f - %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[7]['currency']['code'], s9hashrate, s9monthlyusd, s9monthlyprofitpercent*100, s9hashratepercentyesterday, s9hashratepercentweek, s9hashratepercentmonth, s9hashratepercentyear))
+print('%s hashrate: %i (Monthly USD %4.2f / %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[7]['currency']['code'], s9hashrate, s9monthlyusd, s9monthlyprofitpercent*100, s9hashratepercentyesterday, s9hashratepercentweek, s9hashratepercentmonth, s9hashratepercentyear))
 if s9hashrate_blocked>0:
     print('  Locked: %i' % (s9hashrate_blocked))
 
-print('%s hashrate: %i (Monthly USD %4.2f - %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7monthlyusd, s7monthlyprofitpercent*100, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
+print('%s hashrate: %i (Monthly USD %4.2f / %4.2f%%) [%4.2f%% 24hs] [%4.2f%% 7d] [%4.2f%% 30d] [%4.2f%% 365d]' % (hashrate[6]['currency']['code'], s7hashrate, s7monthlyusd, s7monthlyprofitpercent*100, s7hashratepercentyesterday, s7hashratepercentweek, s7hashratepercentmonth, s7hashratepercentyear))
 if s7hashrate_blocked>0:
     print('  Locked: %i' % (s7hashrate_blocked))
 
