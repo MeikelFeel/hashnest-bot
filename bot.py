@@ -283,15 +283,15 @@ l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
 
 monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
 
-print('L3 MH/s: %i [%4.2f%% 15d] [%4.2f%% 30d]' % (l3hashrate, l3hashratepercenthalfmonth, l3hashratepercentmonth))
+print('L3 %4.2f%% MH/s: %i [%4.2f%% 15d] [%4.2f%% 30d]' % (l3monthlyprofitpercent*100, l3hashrate, l3hashratepercenthalfmonth, l3hashratepercentmonth))
 if l3hashrate_blocked>0:
     print('  Locked: %i' % (l3hashrate_blocked))
 
-print('S9 GH/s: %i [%4.2f%% 15d] [%4.2f%% 30d]' % (s9hashrate, s9hashratepercenthalfmonth, s9hashratepercentmonth))
+print('S9 %4.2f%% GH/s: %i [%4.2f%% 15d] [%4.2f%% 30d]' % (s9monthlyprofitpercent*100, s9hashrate, s9hashratepercenthalfmonth, s9hashratepercentmonth))
 if s9hashrate_blocked>0:
     print('  Locked: %i' % (s9hashrate_blocked))
 
-print('S7 GH/s: %i [%4.2f%% 15d] [%4.2f%% 30d]' % (s7hashrate, s7hashratepercenthalfmonth, s7hashratepercentmonth))
+print('S7 %4.2f%% GH/s: %i [%4.2f%% 15d] [%4.2f%% 30d]' % (s7monthlyprofitpercent*100, s7hashrate, s7hashratepercenthalfmonth, s7hashratepercentmonth))
 if s7hashrate_blocked>0:
     print('  Locked: %i' % (s7hashrate_blocked))
 
