@@ -308,7 +308,7 @@ s7incomepercent=s7monthlyusd/monthlyincomeusd
 
 print('[' + '3'*(int(50*l3incomepercent)) + '9'*(int(50*s9incomepercent)) + '7'*(int(50*s7incomepercent)) + ']')
 print('   (L3 %4.2f%%)    (S9 %4.2f%%)    (S7 %4.2f%%)' % (l3incomepercent*100, s9incomepercent*100, s7incomepercent*100))
-print('$ %4.2f     $ %4.2f     $ %4.2f' % (l3monthlyusd, l3monthlyprofitpercent*100, s9monthlyusd, s9monthlyprofitpercent*100, s7monthlyusd, s7monthlyprofitpercent*100))
+print('$ %4.2f     $ %4.2f     $ %4.2f' % (l3monthlyusd, s9monthlyusd, s7monthlyusd))
 print(' ')
 
 l3valuepercent = l3hashrate * l3tradesmedian * ltcusd / accusdvalue
