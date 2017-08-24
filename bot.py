@@ -305,12 +305,16 @@ print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accval
 
 print('\n')
 
-l3tradepercentweek = percentchange(l3tradesmedianusd, 6, week)
-l3tradepercenthalfmonth = percentchange(l3tradesmedianusd, 6, halfmonth)
-l3tradepercentmonth = percentchange(l3tradesmedianusd, 6, month)
+l3tradepercentweek = percentchange(l3tradesmedian, 9, week)
+l3tradepercenthalfmonth = percentchange(l3tradesmedian, 9, halfmonth)
+l3tradepercentmonth = percentchange(l3tradesmedian, 9, month)
+
+l3tradepercentweekusd = percentchange(l3tradesmedianusd, 6, week)
+l3tradepercenthalfmonthusd = percentchange(l3tradesmedianusd, 6, halfmonth)
+l3tradepercentmonthusd = percentchange(l3tradesmedianusd, 6, month)
 
 print('L3 trade')
-print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
+print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweekusd, l3tradepercenthalfmonthusd, l3tradepercentmonthusd))
 print('[LTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
@@ -334,7 +338,7 @@ if autobuy>0:
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
     smartbuy=float(os.environ['smartbuy'])
-    if smartbuy < 0 and l3tradepercentweek > smartbuy:
+    if smartbuy < 0 and l3tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
         print('\n')
