@@ -152,8 +152,13 @@ s7_ppc_highmean=mean([s7_ppc_mean, s7_ppc_max])
 wallet = json.loads(hashnest_api.get_account_balance())
 btc_balance = float(wallet[0]['amount'])
 btc_blocked = float(wallet[0]['blocked'])
+btc_total = float(wallet[0]['total'])
+db.set('btc_total', btc_total)
+
 ltc_balance = float(wallet[1]['amount'])
 ltc_blocked = float(wallet[1]['blocked'])
+ltc_total= float(wallet[1]['total'])
+db.set('ltc_total', ltc_total)
 
 hashrate = json.loads(hashnest_api.get_account_hashrate())
 s7hashrate = int(float(hashrate[6]['total']))
@@ -175,10 +180,12 @@ db.set('s7tradesmedian', '%10.8f' % (s7tradesmedian))
 
 btcusd=getCryptoPrice('btcusd')
 ltcusd=getCryptoPrice('ltcusd')
+db.set('btcusd', btcusd)
+db.set('ltcusd', ltcusd)
 
 today = date.today()
-accbtcvalue=btc_balance+btc_blocked+s9hashrate*s9tradesmedian+s7hashrate*s7tradesmedian
-accltcvalue=ltc_balance+ltc_blocked+l3hashrate*l3tradesmedian
+accbtcvalue=btc_total+s9hashrate*s9tradesmedian+s7hashrate*s7tradesmedian
+accltcvalue=ltc_total+l3hashrate*l3tradesmedian
 accusdvalue=btcusd * accbtcvalue + ltcusd * accltcvalue
 
 s7tradesmedianusd = s7tradesmedian * btcusd
@@ -314,8 +321,8 @@ accvalpercentmonth = percentchange(accusdvalue, 0, month)
 l3valuepercent = l3hashrate * l3tradesmedian * ltcusd / accusdvalue
 s9valuepercent = s9hashrate * s9tradesmedian * btcusd / accusdvalue
 s7valuepercent = s7hashrate * s7tradesmedian * btcusd / accusdvalue
-btcvaluepercent = (btc_balance + btc_blocked) * btcusd / accusdvalue
-ltcvaluepercent = (ltc_balance + ltc_blocked) * ltcusd / accusdvalue
+btcvaluepercent = btc_total * btcusd / accusdvalue
+ltcvaluepercent = ltc_total * ltcusd / accusdvalue
 
 print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accvalpercenthalfmonth, accvalpercentmonth))
 print('[' + '3'*(int(math.ceil(38*l3valuepercent))) + '9'*(int(math.ceil(38*s9valuepercent))) + '7'*(int(math.ceil(38*s7valuepercent))) + 'L'*(int(math.ceil(38*ltcvaluepercent))) + 'B'*(int(math.ceil(38*btcvaluepercent))) + ']')
@@ -363,7 +370,7 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((ltc_balance+ltc_blocked-reserve)/l3_ppc_min)
+    hashrate_amount=int((ltc_total-reserve)/l3_ppc_min)
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
@@ -410,7 +417,7 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((btc_balance+btc_blocked-reserve)/s9_ppc_min)
+    hashrate_amount=int((btc_total-reserve)/s9_ppc_min)
     hashrate_amount_goal=autobuy-s9hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
@@ -451,7 +458,7 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((btc_balance+btc_blocked-reserve)/s7_ppc_min)
+    hashrate_amount=int((btc_total-reserve)/s7_ppc_min)
     hashrate_amount_goal=autobuy-s7hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
