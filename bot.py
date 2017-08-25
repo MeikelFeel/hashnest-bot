@@ -236,11 +236,11 @@ def getdate(days):
         date = db.get(today - timedelta(days=days))
     return date
 
-week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd]
-halfmonth = getdate(15) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd]
-month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd]
+week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
+halfmonth = getdate(15) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
+month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
 
-varslist = json.dumps([accusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd, means7tradesmedian, means9tradesmedian, meanl3tradesmedian, monthlyincomeusd])
+varslist = json.dumps([accusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd, means7tradesmedian, means9tradesmedian, meanl3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent])
 db.set(today, varslist)
 
 orig_stdout = sys.stdout
