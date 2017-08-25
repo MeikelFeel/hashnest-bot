@@ -373,7 +373,7 @@ if cleanltcminreserve == 1:
 else:
     #min reserve check
     try:
-        ltcminreserve = db.get('ltcminreserve')
+        ltcminreserve = float(db.get('ltcminreserve'))
     except:
         ltcminreserve = ltc_reserve
         db.set('ltcminreserve', ltc_reserve)
@@ -400,7 +400,7 @@ if cleanbtcminreserve == 1:
 else:
     #min reserve check
     try:
-        btcminreserve = db.get('btcminreserve')
+        btcminreserve = float(db.get('btcminreserve'))
     except:
         btcminreserve = btc_reserve
         db.set('btcminreserve', btc_reserve)
