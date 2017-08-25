@@ -357,9 +357,57 @@ except:
 
 #ltc reserve set for l3
 try:
-    reserve=float(os.environ['ltc_reserve'])/100*accusdvalue/ltcusd
+    ltc_reserve=float(os.environ['ltc_reserve'])/100*accusdvalue/ltcusd
 except:
-    reserve=0
+    ltc_reserve=0
+
+#clean
+try:
+    cleanltcminreserve = int(os.environ['cleanltcminreserve'])
+except:
+    cleanltcminreserve = 0
+
+if cleanltcminreserve == 1:
+    ltcminreserve = ltc_reserve
+    db.set('ltcminreserve', ltc_reserve)
+else:
+    #min reserve check
+    try:
+        ltcminreserve = db.get('ltcminreserve')
+    except:
+        ltcminreserve = ltc_reserve
+        db.set('ltcminreserve', ltc_reserve)
+    if ltcminreserve < ltc_reserve:
+        db.set('ltcminreserve', ltc_reserve)
+    if ltcminreserve > ltc_reserve:
+        ltc_reserve = ltcminreserve
+
+#btc reserve set for s9 and s7
+try:
+    btc_reserve=float(os.environ['btc_reserve'])/100*accusdvalue/btcusd
+except:
+    btc_reserve=0
+
+#clean
+try:
+    cleanbtcminreserve = int(os.environ['cleanbtcminreserve'])
+except:
+    cleanbtcminreserve = 0
+
+if cleanbtcminreserve == 1:
+    btcminreserve = btc_reserve
+    db.set('btcminreserve', btc_reserve)
+else:
+    #min reserve check
+    try:
+        btcminreserve = db.get('btcminreserve')
+    except:
+        btcminreserve = btc_reserve
+        db.set('btcminreserve', btc_reserve)
+    if btcminreserve < btc_reserve:
+        db.set('btcminreserve', btc_reserve)
+    if btcminreserve > btc_reserve:
+        btc_reserve = btcminreserve
 
 autobuy=int(os.environ['l3autobuy'])
 if autobuy>0:
@@ -370,7 +418,7 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((ltc_total-reserve)/l3_ppc_min)
+    hashrate_amount=int((ltc_total-ltc_reserve)/l3_ppc_min)
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
@@ -402,12 +450,6 @@ print('Low:  %10.8f' % (s9_ppc_lowmean))
 print('Min:  %10.8f' % (s9_ppc_min))
 print('Bid:  %10.8f' % (max(s9bidlist)))
 
-#btc reserve set for s9 and s7
-try:
-    reserve=float(os.environ['btc_reserve'])/100*accusdvalue/btcusd
-except:
-    reserve=0
-
 autobuy=int(os.environ['s9autobuy'])
 if autobuy>0:
     if btc_blocked>0:
@@ -417,7 +459,7 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((btc_total-reserve)/s9_ppc_min)
+    hashrate_amount=int((btc_total-btc_reserve)/s9_ppc_min)
     hashrate_amount_goal=autobuy-s9hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
@@ -458,7 +500,7 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((btc_total-reserve)/s7_ppc_min)
+    hashrate_amount=int((btc_total-btc_reserve)/s7_ppc_min)
     hashrate_amount_goal=autobuy-s7hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
