@@ -342,6 +342,18 @@ print('Low:  %10.8f' % (l3_ppc_lowmean))
 print('Min:  %10.8f' % (l3_ppc_min))
 print('Bid:  %10.8f' % (max(l3bidlist)))
 
+#smartbuy setup
+try:
+    smartbuy=float(os.environ['smartbuy'])
+except:
+    smartbuy=0
+
+#ltc reserve set for l3
+try:
+    reserve=float(os.environ['ltc_reserve'])/100*accusdvalue/ltcusd
+except:
+    reserve=0
+
 autobuy=int(os.environ['l3autobuy'])
 if autobuy>0:
     if ltc_blocked>0:
@@ -351,11 +363,10 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((ltc_balance+ltc_blocked)/l3_ppc_min)
+    hashrate_amount=int((ltc_balance+ltc_blocked-reserve)/l3_ppc_min)
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
-    smartbuy=float(os.environ['smartbuy'])
     if smartbuy < 0 and l3tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
@@ -384,6 +395,12 @@ print('Low:  %10.8f' % (s9_ppc_lowmean))
 print('Min:  %10.8f' % (s9_ppc_min))
 print('Bid:  %10.8f' % (max(s9bidlist)))
 
+#btc reserve set for s9 and s7
+try:
+    reserve=float(os.environ['btc_reserve'])/100*accusdvalue/btcusd
+except:
+    reserve=0
+
 autobuy=int(os.environ['s9autobuy'])
 if autobuy>0:
     if btc_blocked>0:
@@ -393,11 +410,10 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((btc_balance+btc_blocked)/s9_ppc_min)
+    hashrate_amount=int((btc_balance+btc_blocked-reserve)/s9_ppc_min)
     hashrate_amount_goal=autobuy-s9hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
-    smartbuy=float(os.environ['smartbuy'])
     if smartbuy < 0 and s9tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
@@ -435,11 +451,10 @@ if autobuy>0:
             delorder=json.loads(hashnest_api.delete_order(order['id']))
             if str(delorder['success'])=='True':
                 print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((btc_balance+btc_blocked)/s7_ppc_min)
+    hashrate_amount=int((btc_balance+btc_blocked-reserve)/s7_ppc_min)
     hashrate_amount_goal=autobuy-s7hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
-    smartbuy=float(os.environ['smartbuy'])
     if smartbuy < 0 and s7tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
