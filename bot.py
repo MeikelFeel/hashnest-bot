@@ -328,26 +328,38 @@ print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accval
 print('[' + '3'*(int(math.ceil(38*l3valuepercent))) + '9'*(int(math.ceil(38*s9valuepercent))) + '7'*(int(math.ceil(38*s7valuepercent))) + 'L'*(int(math.ceil(38*ltcvaluepercent))) + 'B'*(int(math.ceil(38*btcvaluepercent))) + ']')
 print('(L3 $%4.2f %4.2f%%) (S9 $%4.2f %4.2f%%) (S7 $%4.2f %4.2f%%) (LTC $%4.2f %4.2f%%) (BTC $%4.2f %4.2f%%)' % (l3valuepercent*accusdvalue, l3valuepercent*100, s9valuepercent*accusdvalue, s9valuepercent*100, s7valuepercent*accusdvalue, s7valuepercent*100, ltcvaluepercent*accusdvalue, ltcvaluepercent*100, btcvaluepercent*accusdvalue, btcvaluepercent*100))
 
+if ltc_blocked>0:
+    print('\n')
+    active_orders = json.loads(hashnest_api.get_orders(22))
+    for order in active_orders:
+        delorder=json.loads(hashnest_api.delete_order(order['id']))
+        if str(delorder['success'])=='True':
+            print('Deleted order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+if btc_blocked>0:
+    print('\n')
+    active_orders = json.loads(hashnest_api.get_orders(21))
+    for order in active_orders:
+        delorder=json.loads(hashnest_api.delete_order(order['id']))
+        if str(delorder['success'])=='True':
+            print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+    print('\n')
+    active_orders = json.loads(hashnest_api.get_orders(20))
+    for order in active_orders:
+        delorder=json.loads(hashnest_api.delete_order(order['id']))
+        if str(delorder['success'])=='True':
+            print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+
+wallet = json.loads(hashnest_api.get_account_balance())
+
+btc_balance = float(wallet[0]['amount'])
+btc_blocked = float(wallet[0]['blocked'])
+btc_total = float(wallet[0]['total'])
+
+ltc_balance = float(wallet[1]['amount'])
+ltc_blocked = float(wallet[1]['blocked'])
+ltc_total= float(wallet[1]['total'])
+
 print('\n')
-
-l3tradepercentweek = percentchange(l3tradesmedian, 9, week)
-l3tradepercenthalfmonth = percentchange(l3tradesmedian, 9, halfmonth)
-l3tradepercentmonth = percentchange(l3tradesmedian, 9, month)
-
-l3tradepercentweekusd = percentchange(l3tradesmedianusd, 6, week)
-l3tradepercenthalfmonthusd = percentchange(l3tradesmedianusd, 6, halfmonth)
-l3tradepercentmonthusd = percentchange(l3tradesmedianusd, 6, month)
-
-print('L3 trade')
-print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweekusd, l3tradepercenthalfmonthusd, l3tradepercentmonthusd))
-print('[LTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
-print('Ask:  %10.8f' % (min(l3asklist)))
-print('Max:  %10.8f' % (l3_ppc_max))
-print('High: %10.8f' % (l3_ppc_highmean))
-print('Mean: %10.8f' % (l3_ppc_mean))
-print('Low:  %10.8f' % (l3_ppc_lowmean))
-print('Min:  %10.8f' % (l3_ppc_min))
-print('Bid:  %10.8f' % (max(l3bidlist)))
 
 #smartbuy setup
 try:
@@ -409,16 +421,28 @@ else:
     if btcminreserve > btc_reserve:
         btc_reserve = btcminreserve
 
+l3tradepercentweek = percentchange(l3tradesmedian, 9, week)
+l3tradepercenthalfmonth = percentchange(l3tradesmedian, 9, halfmonth)
+l3tradepercentmonth = percentchange(l3tradesmedian, 9, month)
+
+l3tradepercentweekusd = percentchange(l3tradesmedianusd, 6, week)
+l3tradepercenthalfmonthusd = percentchange(l3tradesmedianusd, 6, halfmonth)
+l3tradepercentmonthusd = percentchange(l3tradesmedianusd, 6, month)
+
+print('L3 trade')
+print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweekusd, l3tradepercenthalfmonthusd, l3tradepercentmonthusd))
+print('[LTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
+print('Ask:  %10.8f' % (min(l3asklist)))
+print('Max:  %10.8f' % (l3_ppc_max))
+print('High: %10.8f' % (l3_ppc_highmean))
+print('Mean: %10.8f' % (l3_ppc_mean))
+print('Low:  %10.8f' % (l3_ppc_lowmean))
+print('Min:  %10.8f' % (l3_ppc_min))
+print('Bid:  %10.8f' % (max(l3bidlist)))
+
 autobuy=int(os.environ['l3autobuy'])
-if autobuy>0:
-    if ltc_blocked>0:
-        print('\n')
-        active_orders = json.loads(hashnest_api.get_orders(22))
-        for order in active_orders:
-            delorder=json.loads(hashnest_api.delete_order(order['id']))
-            if str(delorder['success'])=='True':
-                print('Deleted order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((ltc_total-ltc_reserve)/l3_ppc_min)
+if autobuy > 0 and ltc_blocked == 0:
+    hashrate_amount=int((ltc_balance-ltc_reserve)/l3_ppc_min)
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
@@ -451,15 +475,8 @@ print('Min:  %10.8f' % (s9_ppc_min))
 print('Bid:  %10.8f' % (max(s9bidlist)))
 
 autobuy=int(os.environ['s9autobuy'])
-if autobuy>0:
-    if btc_blocked>0:
-        print('\n')
-        active_orders = json.loads(hashnest_api.get_orders(21))
-        for order in active_orders:
-            delorder=json.loads(hashnest_api.delete_order(order['id']))
-            if str(delorder['success'])=='True':
-                print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((btc_total-btc_reserve)/s9_ppc_min)
+if autobuy > 0 and btc_blocked == 0:
+    hashrate_amount=int((btc_balance-btc_reserve)/s9_ppc_min)
     hashrate_amount_goal=autobuy-s9hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
@@ -492,15 +509,8 @@ print('Min:  %10.8f' % (s7_ppc_min))
 print('Bid:  %10.8f' % (max(s7bidlist)))
 
 autobuy=int(os.environ['s7autobuy'])
-if autobuy>0:
-    if btc_blocked>0:
-        print('\n')
-        active_orders = json.loads(hashnest_api.get_orders(20))
-        for order in active_orders:
-            delorder=json.loads(hashnest_api.delete_order(order['id']))
-            if str(delorder['success'])=='True':
-                print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-    hashrate_amount=int((btc_total-btc_reserve)/s7_ppc_min)
+if autobuy > 0 and btc_blocked == 0:
+    hashrate_amount=int((btc_balance-btc_reserve)/s7_ppc_min)
     hashrate_amount_goal=autobuy-s7hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
