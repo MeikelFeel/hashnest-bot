@@ -447,6 +447,8 @@ if autobuy > 0 and ltc_blocked == 0:
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
+    if hashrate_amount > 47:
+        hashrate_amount = 47
     if smartbuy < 0 and l3tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
@@ -481,6 +483,8 @@ if autobuy > 0 and btc_blocked == 0:
     hashrate_amount_goal=autobuy-s9hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
+    if hashrate_amount > 471:
+        hashrate_amount = 471
     if smartbuy < 0 and s9tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
@@ -515,6 +519,8 @@ if autobuy > 0 and btc_blocked == 0:
     hashrate_amount_goal=autobuy-s7hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
+    if hashrate_amount > 471:
+        hashrate_amount = 471
     if smartbuy < 0 and s7tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
