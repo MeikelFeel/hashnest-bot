@@ -3,6 +3,7 @@ import json, os, sys, redis, requests, math
 from hashnest import hashnest
 from datetime import datetime, timedelta, date
 from statistics import mean, harmonic_mean, median_high, median, median_low
+from random import randint
 
 def getCryptoPrice(currency_pair):
     URL = 'https://www.bitstamp.net/api/v2/ticker/' + currency_pair
@@ -447,6 +448,7 @@ if autobuy > 0 and ltc_blocked == 0:
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
+    print(randint(40, 49))
     if hashrate_amount > 47:
         hashrate_amount = 47
     if smartbuy < 0 and l3tradepercentweekusd > smartbuy:
