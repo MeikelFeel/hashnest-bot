@@ -328,20 +328,21 @@ print('Acc. value: USD %4.2f [%4.2f%% 15d] [%4.2f%% 30d]' % (accusdvalue, accval
 print('[' + '3'*(int(math.ceil(38*l3valuepercent))) + '9'*(int(math.ceil(38*s9valuepercent))) + '7'*(int(math.ceil(38*s7valuepercent))) + 'L'*(int(math.ceil(38*ltcvaluepercent))) + 'B'*(int(math.ceil(38*btcvaluepercent))) + ']')
 print('(L3 $%4.2f %4.2f%%) (S9 $%4.2f %4.2f%%) (S7 $%4.2f %4.2f%%) (LTC $%4.2f %4.2f%%) (BTC $%4.2f %4.2f%%)' % (l3valuepercent*accusdvalue, l3valuepercent*100, s9valuepercent*accusdvalue, s9valuepercent*100, s7valuepercent*accusdvalue, s7valuepercent*100, ltcvaluepercent*accusdvalue, ltcvaluepercent*100, btcvaluepercent*accusdvalue, btcvaluepercent*100))
 
-if ltc_blocked>0:
+if ltc_blocked > 0 and int(os.environ['l3autobuy']) > 0:
     print('\n')
     active_orders = json.loads(hashnest_api.get_orders(22))
     for order in active_orders:
         delorder=json.loads(hashnest_api.delete_order(order['id']))
         if str(delorder['success'])=='True':
             print('Deleted order: %s of %i MH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
-if btc_blocked>0:
+if btc_blocked > 0 and int(os.environ['s9autobuy']) > 0:
     print('\n')
     active_orders = json.loads(hashnest_api.get_orders(21))
     for order in active_orders:
         delorder=json.loads(hashnest_api.delete_order(order['id']))
         if str(delorder['success'])=='True':
             print('Deleted order: %s of %i GH/s, %10.8f ppc, %10.8f total, created at %s' % (order['category'], float(order['amount']), float(order['ppc']), float(order['amount']) * float(order['ppc']), order['created_at']))
+if btc_blocked > 0 and int(os.environ['s7autobuy']) > 0:
     print('\n')
     active_orders = json.loads(hashnest_api.get_orders(20))
     for order in active_orders:
