@@ -3,7 +3,6 @@ import json, os, sys, redis, requests, math
 from hashnest import hashnest
 from datetime import datetime, timedelta, date
 from statistics import mean, harmonic_mean, median_high, median, median_low
-from random import randint
 
 def getCryptoPrice(currency_pair):
     URL = 'https://www.bitstamp.net/api/v2/ticker/' + currency_pair
@@ -105,6 +104,12 @@ s9_tradesmeanppc=[]
 s9_ordersmeanppc=[]
 s7_tradesmeanppc=[]
 s7_ordersmeanppc=[]
+
+print len(l3tradeslist)
+print len(s9tradeslist)
+print len(s7tradeslist)
+print len(l3asklist)
+print len(l3bidlist)
 
 for i in range(1, 21):
     l3_tradesmeanppc.append([mean(l3tradeslist[0:i]), harmonic_mean(l3tradeslist[0:i]), median_high(l3tradeslist[0:i]), median_low(l3tradeslist[0:i])])
@@ -448,9 +453,6 @@ if autobuy > 0 and ltc_blocked == 0:
     hashrate_amount_goal=autobuy-l3hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
-    random=randint(40, 48)
-    if hashrate_amount > random:
-        hashrate_amount = random
     if smartbuy < 0 and l3tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
@@ -485,9 +487,6 @@ if autobuy > 0 and btc_blocked == 0:
     hashrate_amount_goal=autobuy-s9hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
-    random=randint(400, 480)
-    if hashrate_amount > random:
-        hashrate_amount = random
     if smartbuy < 0 and s9tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
@@ -522,9 +521,6 @@ if autobuy > 0 and btc_blocked == 0:
     hashrate_amount_goal=autobuy-s7hashrate
     if hashrate_amount > hashrate_amount_goal:
         hashrate_amount = hashrate_amount_goal
-    random=randint(400, 480)
-    if hashrate_amount > random:
-        hashrate_amount = random
     if smartbuy < 0 and s7tradepercentweekusd > smartbuy:
         hashrate_amount = 0
     if hashrate_amount > 0:
