@@ -222,22 +222,6 @@ def getdate(days):
         date = db.get(today - timedelta(days=days))
     return date
 
-try:
-    gettoday = json.loads(db.get(today).decode('utf-8'))
-    means7tradesmedianusd = mean([float(gettoday[4]), s7tradesmedianusd])
-    means9tradesmedianusd = mean([float(gettoday[5]), s9tradesmedianusd])
-    meanl3tradesmedianusd = mean([float(gettoday[6]), l3tradesmedianusd])
-    means7tradesmedian = mean([float(gettoday[7]), s7tradesmedian])
-    means9tradesmedian = mean([float(gettoday[8]), s9tradesmedian])
-    meanl3tradesmedian = mean([float(gettoday[9]), l3tradesmedian])
-except:
-    means7tradesmedianusd = s7tradesmedianusd
-    means9tradesmedianusd = s9tradesmedianusd
-    meanl3tradesmedianusd = l3tradesmedianusd
-    means7tradesmedian = s7tradesmedian
-    means9tradesmedian = s9tradesmedian
-    meanl3tradesmedian = l3tradesmedian
-
 def movingaverage(var, days):
     ma = []
     for i in range(1, days+1):
@@ -252,7 +236,7 @@ week = getdate(7) or newdayvars
 halfmonth = getdate(15) or newdayvars
 month = getdate(30) or newdayvars
 
-varslist = json.dumps([accusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd, means7tradesmedian, means9tradesmedian, meanl3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent])
+varslist = json.dumps(newdayvars)
 db.set(today, varslist)
 
 orig_stdout = sys.stdout
