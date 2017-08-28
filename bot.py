@@ -241,7 +241,6 @@ except:
 def movingaverage(var, days):
     ma = []
     for i in range(1, days+1):
-        print(i)
         date = getdate(i)
         ma.append(float(date[var]))
     ma = mean(ma)
@@ -444,10 +443,11 @@ l3tradepercenthalfmonthusd = percentchange(l3tradesmedianusd, 6, halfmonth)
 l3tradepercentmonthusd = percentchange(l3tradesmedianusd, 6, month)
 
 l3ma5 = movingaverage(9, 4)
+l3ma5usd = movingaverage(6, 4)
 
-print('L3 trade [MA5: %10.8f]' % (l3ma5))
-print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweekusd, l3tradepercenthalfmonthusd, l3tradepercentmonthusd))
+print('L3 trade [MA5: %10.8f %10.8f]' % (l3ma5, l3ma5usd))
 print('[LTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
+print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweekusd, l3tradepercenthalfmonthusd, l3tradepercentmonthusd))
 print('Ask:  %10.8f' % (min(l3asklist)))
 print('Max:  %10.8f' % (l3_ppc_max))
 print('High: %10.8f' % (l3_ppc_highmean))
@@ -483,10 +483,11 @@ s9tradepercenthalfmonthusd = percentchange(s9tradesmedianusd, 5, halfmonth)
 s9tradepercentmonthusd = percentchange(s9tradesmedianusd, 5, month)
 
 s9ma5 = movingaverage(8, 4)
+s9ma5usd = movingaverage(5, 4)
 
-print('S9 trade [MA5: %10.8f]' % (s9ma5))
-print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedianusd, s9tradepercentweekusd, s9tradepercenthalfmonthusd, s9tradepercentmonthusd))
+print('S9 trade [MA5: %10.8f %10.8f]' % (s9ma5, s9ma5usd))
 print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedian, s9tradepercentweek, s9tradepercenthalfmonth, s9tradepercentmonth))
+print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedianusd, s9tradepercentweekusd, s9tradepercenthalfmonthusd, s9tradepercentmonthusd))
 print('Ask:  %10.8f' % (min(s9asklist)))
 print('Max:  %10.8f' % (s9_ppc_max))
 print('High: %10.8f' % (s9_ppc_highmean))
@@ -525,8 +526,8 @@ s7ma5 = movingaverage(7, 4)
 s7ma5usd = movingaverage(4, 4)
 
 print('S7 trade [MA5: %10.8f %10.8f]' % (s7ma5, s7ma5usd))
-print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedianusd, s7tradepercentweekusd, s7tradepercenthalfmonthusd, s7tradepercentmonthusd))
 print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradepercentweek, s7tradepercenthalfmonth, s7tradepercentmonth))
+print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedianusd, s7tradepercentweekusd, s7tradepercenthalfmonthusd, s7tradepercentmonthusd))
 print('Ask:  %10.8f' % (min(s7asklist)))
 print('Max:  %10.8f' % (s7_ppc_max))
 print('High: %10.8f' % (s7_ppc_highmean))
