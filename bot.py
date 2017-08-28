@@ -445,7 +445,7 @@ l3tradepercentmonthusd = percentchange(l3tradesmedianusd, 6, month)
 
 l3ma5 = movingaverage(9, 5)
 
-print('L3 trade MA5: ' + l3ma5)
+print('L3 trade [MA5: %10.8f]' % (l3ma5))
 print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweekusd, l3tradepercenthalfmonthusd, l3tradepercentmonthusd))
 print('[LTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
 print('Ask:  %10.8f' % (min(l3asklist)))
@@ -484,7 +484,7 @@ s9tradepercentmonthusd = percentchange(s9tradesmedianusd, 5, month)
 
 s9ma5 = movingaverage(8, 5)
 
-print('S9 trade MA5: ' + s9ma5)
+print('S9 trade [MA5: %10.8f]' % (s9ma5))
 print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedianusd, s9tradepercentweekusd, s9tradepercenthalfmonthusd, s9tradepercentmonthusd))
 print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedian, s9tradepercentweek, s9tradepercenthalfmonth, s9tradepercentmonth))
 print('Ask:  %10.8f' % (min(s9asklist)))
@@ -523,7 +523,7 @@ s7tradepercentmonthusd = percentchange(s7tradesmedianusd, 4, month)
 
 s7ma5 = movingaverage(7, 5)
 
-print('S7 trade MA5: ' + s7ma5)
+print('S7 trade [MA5: %10.8f]' % (s7ma5))
 print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedianusd, s7tradepercentweekusd, s7tradepercenthalfmonthusd, s7tradepercentmonthusd))
 print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradepercentweek, s7tradepercenthalfmonth, s7tradepercentmonth))
 print('Ask:  %10.8f' % (min(s7asklist)))
