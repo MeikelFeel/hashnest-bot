@@ -215,26 +215,32 @@ l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
 
 monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
 
+newdayvars = [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
+
 def getdate(days):
     try:
         date = json.loads(db.get(today - timedelta(days=days)).decode('utf-8'))
     except:
-        date = db.get(today - timedelta(days=days))
+        try:
+            date = db.get(today - timedelta(days=days))
+        except:
+            date = newdayvars
     return date
 
 def movingaverage(var, days):
     ma = []
     for i in range(1, days+1):
         date = getdate(i)
-        ma.append(float(date[var]))
+        try:
+            ma.append(float(date[var]))
+        except:
+            ma.append(float(newdayvars[var]))
     ma = mean(ma)
     return ma
 
-newdayvars = [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
-
-week = getdate(7) or newdayvars
-halfmonth = getdate(15) or newdayvars
-month = getdate(30) or newdayvars
+week = getdate(7)
+halfmonth = getdate(15)
+month = getdate(30)
 
 varslist = json.dumps(newdayvars)
 db.set(today, varslist)
@@ -426,10 +432,10 @@ l3tradepercentweekusd = percentchange(l3tradesmedianusd, 6, week)
 l3tradepercenthalfmonthusd = percentchange(l3tradesmedianusd, 6, halfmonth)
 l3tradepercentmonthusd = percentchange(l3tradesmedianusd, 6, month)
 
-l3ma5 = movingaverage(9, 4)
+l3ma5 = movingaverage(9, 5)
 l3ma5percent = l3tradesmedian / l3ma5 * 100 - 100
 
-l3ma5usd = movingaverage(6, 4)
+l3ma5usd = movingaverage(6, 5)
 l3ma5usdpercent = l3tradesmedianusd / l3ma5usd * 100 - 100
 
 print('L3 trade [MA5: %10.8f %4.2f%% %4.4f %4.2f%%]' % (l3ma5, l3ma5percent, l3ma5usd, l3ma5usdpercent))
@@ -469,10 +475,10 @@ s9tradepercentweekusd = percentchange(s9tradesmedianusd, 5, week)
 s9tradepercenthalfmonthusd = percentchange(s9tradesmedianusd, 5, halfmonth)
 s9tradepercentmonthusd = percentchange(s9tradesmedianusd, 5, month)
 
-s9ma5 = movingaverage(8, 4)
+s9ma5 = movingaverage(8, 5)
 s9ma5percent = s9tradesmedian / s9ma5 * 100 - 100
 
-s9ma5usd = movingaverage(5, 4)
+s9ma5usd = movingaverage(5, 5)
 s9ma5usdpercent = s9tradesmedianusd / s9ma5usd * 100 - 100
 
 print('S9 trade [MA5: %10.8f %4.2f%% %4.4f %4.2f%%]' % (s9ma5, s9ma5percent, s9ma5usd, s9ma5usdpercent))
@@ -512,10 +518,10 @@ s7tradepercentweekusd = percentchange(s7tradesmedianusd, 4, week)
 s7tradepercenthalfmonthusd = percentchange(s7tradesmedianusd, 4, halfmonth)
 s7tradepercentmonthusd = percentchange(s7tradesmedianusd, 4, month)
 
-s7ma5 = movingaverage(7, 4)
+s7ma5 = movingaverage(7, 5)
 s7ma5percent = s7tradesmedian / s7ma5 * 100 - 100
 
-s7ma5usd = movingaverage(4, 4)
+s7ma5usd = movingaverage(4, 5)
 s7ma5usdpercent = s7tradesmedianusd / s7ma5usd * 100 - 100
 
 print('S7 trade [MA5: %10.8f %4.2f%% %4.4f %4.2f%%]' % (s7ma5, s7ma5percent, s7ma5usd, s7ma5usdpercent))
