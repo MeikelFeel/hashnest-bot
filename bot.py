@@ -106,11 +106,11 @@ s9_ordersmeanppc=[]
 s7_tradesmeanppc=[]
 s7_ordersmeanppc=[]
 
-print len(l3tradeslist)
-print len(s9tradeslist)
-print len(s7tradeslist)
-print len(l3asklist)
-print len(l3bidlist)
+print(len(l3tradeslist))
+print(len(s9tradeslist))
+print(len(s7tradeslist))
+print(len(l3asklist))
+print(len(l3bidlist))
 
 for i in range(1, 21):
     l3_tradesmeanppc.append([mean(l3tradeslist[0:i]), harmonic_mean(l3tradeslist[0:i]), median_high(l3tradeslist[0:i]), median_low(l3tradeslist[0:i])])
