@@ -107,9 +107,8 @@ s7_tradesmeanppc=[]
 s7_ordersmeanppc=[]
 
 tradeslen = min([len(l3tradeslist), len(s9tradeslist), len(s7tradeslist)])+1
-orderslen = min([len(l3asklist), len(l3bidlist), len(s9asklist), len(s9bidlist), len(s7asklist), len(s7bidlist)])
+orderslen = int(min([len(l3asklist), len(l3bidlist), len(s9asklist), len(s9bidlist), len(s7asklist), len(s7bidlist)])/2)
 
-print(tradeslen)
 print(orderslen)
 
 for i in range(1, tradeslen):
