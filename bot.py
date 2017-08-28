@@ -241,6 +241,7 @@ except:
 def movingaverage(var, days):
     ma = []
     for i in range(1, days):
+        print(i)
         date = getdate(i)
         ma.append(float(date[var]))
     ma = mean(ma)
