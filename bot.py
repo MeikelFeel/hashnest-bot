@@ -528,7 +528,7 @@ s7tradepercentweekusd = percentchange(s7tradesmedianusd, 4, week)
 s7tradepercenthalfmonthusd = percentchange(s7tradesmedianusd, 4, halfmonth)
 s7tradepercentmonthusd = percentchange(s7tradesmedianusd, 4, month)
 
-print('S7 trade [MA5: %10.8f %4.2f%% %10.8f %4.2f%%]' % (s7ma5, s7ma5usd))
+print('S7 trade [MA5: %10.8f %4.2f%% %10.8f %4.2f%%]' % (s7ma5, s7ma5percent, s7ma5usd, s7ma5usdpercent))
 print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradepercentweek, s7tradepercenthalfmonth, s7tradepercentmonth))
 print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedianusd, s7tradepercentweekusd, s7tradepercenthalfmonthusd, s7tradepercentmonthusd))
 print('Ask:  %10.8f' % (min(s7asklist)))
