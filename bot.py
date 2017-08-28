@@ -106,18 +106,15 @@ s9_ordersmeanppc=[]
 s7_tradesmeanppc=[]
 s7_ordersmeanppc=[]
 
-print(len(l3tradeslist))
-print(len(s9tradeslist))
-print(len(s7tradeslist))
-print(len(l3asklist))
-print(len(l3bidlist))
-
 for i in range(1, 21):
     l3_tradesmeanppc.append([mean(l3tradeslist[0:i]), harmonic_mean(l3tradeslist[0:i]), median_high(l3tradeslist[0:i]), median_low(l3tradeslist[0:i])])
     s9_tradesmeanppc.append([mean(s9tradeslist[0:i]), harmonic_mean(s9tradeslist[0:i]), median_high(s9tradeslist[0:i]), median_low(s9tradeslist[0:i])])
     s7_tradesmeanppc.append([mean(s7tradeslist[0:i]), harmonic_mean(s7tradeslist[0:i]), median_high(s7tradeslist[0:i]), median_low(s7tradeslist[0:i])])
+for i in range(1, min([len(l3asklist), len(l3bidlist)])+1):
     l3_ordersmeanppc.append([mean(l3asklist[0:i] + l3bidlist[0:i]), harmonic_mean(l3asklist[0:i] + l3bidlist[0:i]), median_high(l3asklist[0:i] + l3bidlist[0:i]), median_low(l3asklist[0:i] + l3bidlist[0:i])])
+for i in range(1, min([len(s9asklist), len(s9bidlist)])+1):
     s9_ordersmeanppc.append([mean(s9asklist[0:i] + s9bidlist[0:i]), harmonic_mean(s9asklist[0:i] + s9bidlist[0:i]), median_high(s9asklist[0:i] + s9bidlist[0:i]), median_low(s9asklist[0:i] + s9bidlist[0:i])])
+for i in range(1, min([len(s7asklist), len(s7bidlist)])+1):
     s7_ordersmeanppc.append([mean(s7asklist[0:i] + s7bidlist[0:i]), harmonic_mean(s7asklist[0:i] + s7bidlist[0:i]), median_high(s7asklist[0:i] + s7bidlist[0:i]), median_low(s7asklist[0:i] + s7bidlist[0:i])])
 
 #l3_ppc = l3_ordersmeanppc[5-1] + l3_ordersmeanppc[10-1] + l3_ordersmeanppc[15-1] + l3_ordersmeanppc[20-1] + l3_tradesmeanppc[5-1] + l3_tradesmeanppc[10-1] + l3_tradesmeanppc[15-1] + l3_tradesmeanppc[20-1]
