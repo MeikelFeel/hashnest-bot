@@ -215,6 +215,13 @@ l3monthlyusd=l3effectivemonthlyprofit*l3hashrate*ltcusd
 
 monthlyincomeusd=s7monthlyusd+s9monthlyusd+l3monthlyusd
 
+def getdate(days):
+    try:
+        date = json.loads(db.get(today - timedelta(days=days)).decode('utf-8'))
+    except:
+        date = db.get(today - timedelta(days=days))
+    return date
+
 try:
     gettoday = json.loads(db.get(today).decode('utf-8'))
     means7tradesmedianusd = mean([float(gettoday[4]), s7tradesmedianusd])
@@ -231,16 +238,19 @@ except:
     means9tradesmedian = s9tradesmedian
     meanl3tradesmedian = l3tradesmedian
 
-def getdate(days):
-    try:
-        date = json.loads(db.get(today - timedelta(days=days)).decode('utf-8'))
-    except:
-        date = db.get(today - timedelta(days=days))
-    return date
+def movingaverage(var, days):
+    ma = []
+    for i in range(1, days):
+        date = getdate(i)
+        ma.append(float(date[var]))
+    ma = mean(ma)
+    return ma
 
-week = getdate(7) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
-halfmonth = getdate(15) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
-month = getdate(30) or [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
+newdayvars = [accusdvalue, s7hashrate, s9hashrate, l3hashrate, s7tradesmedianusd, s9tradesmedianusd, l3tradesmedianusd, s7tradesmedian, s9tradesmedian, l3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent]
+
+week = getdate(7) or newdayvars
+halfmonth = getdate(15) or newdayvars
+month = getdate(30) or newdayvars
 
 varslist = json.dumps([accusdvalue, s7hashrate, s9hashrate, l3hashrate, means7tradesmedianusd, means9tradesmedianusd, meanl3tradesmedianusd, means7tradesmedian, means9tradesmedian, meanl3tradesmedian, monthlyincomeusd, btc_total, ltc_total, s7monthlyprofitpercent, s9monthlyprofitpercent, l3monthlyprofitpercent])
 db.set(today, varslist)
@@ -432,7 +442,9 @@ l3tradepercentweekusd = percentchange(l3tradesmedianusd, 6, week)
 l3tradepercenthalfmonthusd = percentchange(l3tradesmedianusd, 6, halfmonth)
 l3tradepercentmonthusd = percentchange(l3tradesmedianusd, 6, month)
 
-print('L3 trade')
+l3ma5 = movingaverage(9, 5)
+
+print('L3 trade MA5: ' + l3ma5)
 print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedianusd, l3tradepercentweekusd, l3tradepercenthalfmonthusd, l3tradepercentmonthusd))
 print('[LTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (l3tradesmedian, l3tradepercentweek, l3tradepercenthalfmonth, l3tradepercentmonth))
 print('Ask:  %10.8f' % (min(l3asklist)))
@@ -469,7 +481,9 @@ s9tradepercentweekusd = percentchange(s9tradesmedianusd, 5, week)
 s9tradepercenthalfmonthusd = percentchange(s9tradesmedianusd, 5, halfmonth)
 s9tradepercentmonthusd = percentchange(s9tradesmedianusd, 5, month)
 
-print('S9 trade')
+s9ma5 = movingaverage(8, 5)
+
+print('S9 trade MA5: ' + s9ma5)
 print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedianusd, s9tradepercentweekusd, s9tradepercenthalfmonthusd, s9tradepercentmonthusd))
 print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s9tradesmedian, s9tradepercentweek, s9tradepercenthalfmonth, s9tradepercentmonth))
 print('Ask:  %10.8f' % (min(s9asklist)))
@@ -506,7 +520,9 @@ s7tradepercentweekusd = percentchange(s7tradesmedianusd, 4, week)
 s7tradepercenthalfmonthusd = percentchange(s7tradesmedianusd, 4, halfmonth)
 s7tradepercentmonthusd = percentchange(s7tradesmedianusd, 4, month)
 
-print('S7 trade')
+s7ma5 = movingaverage(7, 5)
+
+print('S7 trade MA5: ' + s7ma5)
 print('[USD %4.4f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedianusd, s7tradepercentweekusd, s7tradepercenthalfmonthusd, s7tradepercentmonthusd))
 print('[BTC %10.8f] [%4.2f%% 7d] [%4.2f%% 15d] [%4.2f%% 30d]' % (s7tradesmedian, s7tradepercentweek, s7tradepercenthalfmonth, s7tradepercentmonth))
 print('Ask:  %10.8f' % (min(s7asklist)))
